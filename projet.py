@@ -1,4 +1,5 @@
 
 class porjet:
-  def test():
-    
+  def calcule(self, chaine):
+    c = chaine + 1
+    return c 
