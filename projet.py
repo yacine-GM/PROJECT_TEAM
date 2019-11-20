@@ -8,6 +8,9 @@ class porjet:
     getattrbl
     bla
     getattrrg
-    
+    ffefejfjef
+    jfejfejfejfejef
+    fejfejfejfejfej
+    fejfejfejefjfej
 
 
