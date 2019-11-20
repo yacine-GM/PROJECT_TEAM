@@ -8,6 +8,9 @@ class porjet:
     getattrbl
     bla
     getattrrg
+    test#2 de charles lalalaa
+    gthshstr
+    hasattr
     
 
 
