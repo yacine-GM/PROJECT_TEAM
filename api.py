@@ -42,3 +42,4 @@ def jouer_coup(id_partie, type_coup, position):
     else:
         print(f"Le GET sur {URL_BASE+'lister'} a produit le code d'erreur {rep.status_code}.")
         raise RuntimeError
+    
