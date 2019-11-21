@@ -64,3 +64,4 @@ def afficher_damier_ascii(idul, etat):
 if __name__ == "__main__":
     # On appèle analyser_commande() au démarage pour lire les arguments
     ARGS = analyser_commande()
+
