@@ -1,13 +1,16 @@
 class Quoridor:
 
-    def __init__(self, joueurs, murs=None):
+    def __init__(self, joueurs, murs=None):       
         if type(joueurs) is str:
-            self.nom1 = joueurs.split()[0][0]
-            self.pos1 = joueurs.split()[0][1]
-            self.murs1i = joueurs.split()[0][2]
-            self.nom2 = joueurs.split()[1][0]
-            self.pos2 = joueurs.split()[1][1]
-            self.murs2i = joueurs.split()[1][2]
+            self.nom1 = joueurs.split()[0]
+            self.pos1 = [5, 9]
+            self.murs1i = 10
+            self.nom2 = joueurs.split()[1]
+            self.pos2 = [5, 1]
+            self.murs2i = 10
+            for i, j in enumerate(joueurs):
+                if i>1:
+                    raise IndexError('le jeu accepte as plue que 2 joueurs ')#si l'itérable de joueurs en contient plus de deux
 
         if type(joueurs) is dict:
             self.id1= joueurs['joueurs'][0]['nom']
@@ -23,17 +26,15 @@ class Quoridor:
             joueurs = iter(joueurs)
         except TypeError: 
             raise TypeError('QuoridorError')#si joueurs n'est pas itérable
-        if int(self.murs1)> 10 or int(self.murs2) > 10 or int(self.murs1)<= 0 or int(self.murs2)<= 0:
+        if 10 <self.murs1< 0 or 10 <self.murs2< 0 :
             raise IndexError('erreur dans le nombre de murs')#si le nombre de murs qu'un joueur peut placer est >10, ou négatif.
-        if (self.pos1)!= [5, 9] and (self.pos2) != [5, 9] or (self.pos2)!= [5, 1] and (self.pos1) != [5, 1]:
+        if (self.pos1)!= [5, 9] or (self.pos2) != [5, 1] :
             raise IndexError("la position n'est pas valide")#si la position d'un joueur est invalide
         if type(self.murs) is not dict:
             raise KeyError("la variable mur n'est pas un dictionnaire" )#si murs n'est pas un dictionnaire lorsque présent
-        for i, j in enumerate(joueurs['joueurs']):
-            if i>1:
-                raise IndexError('le jeu accepte as plue que 2 joueurs ')#si l'itérable de joueurs en contient plus de deux
-        if (int(self.murs1i)- int(self.murs1) + int(self.murs2i) - int(self.murs2))> 20:
+        if (10- int(self.murs1) + 10 - int(self.murs2))> 20:
             raise IndexError('les nombre de murs est incorrecte ')#si le total des murs placés et plaçables n'est pas égal à 20
+<<<<<<< HEAD
 
     def __str__(self):
         A = (f' legende : 1  2 = automate')
@@ -59,6 +60,47 @@ class Quoridor:
         E = ('  | 1   2   3   4   5   6   7   8   9')
         return A+ '\n' + B+'\n' +C+'\n' +D + '\n' + E
 
+=======
+    def __str__(self):
+        buffer = f"\nLégende: 1={'self.nom1'}, 2={'self.nom2'}\n"
+        buffer += f"   -----------------------------------\n"
+        mat_line = []
+        mat_open = []
+   
+        for i in range(0, 9):
+            mat_line.append(list(f"{(9-i)} | .   .   .   .   .   .   .   .   . |\n"))
+        for i in range(0, 8):
+            mat_open.append(list("  |                                   |\n"))
+        pos_joueur = self.pos1
+        pos_automate = self.pos2
+        mat_line[9-pos_joueur[1]][4 + (pos_joueur[0] - 1)*4] = "1"
+        mat_line[9-pos_automate[1]][4 + (pos_automate[0] - 1)*4] = "2"
+        list_hor = self.murs_h
+        list_ver = self.murs_v
+        for coord in list_hor:
+            y = 9-coord[1]
+            x = 4+(coord[0]-1)*4
+            mat_open[y][x-1] = '-'
+            mat_open[y][x] = '-'
+            mat_open[y][x+1] = '-'
+            mat_open[y][x+2] = '-'
+            mat_open[y][x+3] = '-'
+            mat_open[y][x+4] = '-'
+            mat_open[y][x+5] = '-'
+        for coord in list_ver:
+            y = y = 9-coord[1]
+            x = 4+(coord[0]-1)*4
+            mat_line[y][x-2] = '|'
+            mat_open[y-1][x-2] = '|'
+            mat_line[y-1][x-2] = '|'
+        for i in range(len(mat_line)):
+            buffer += ''.join(mat_line[i])
+            if i < len(mat_open):
+                buffer += ''.join(mat_open[i])
+        buffer += "--|-----------------------------------\n"
+        buffer += "  | 1   2   3   4   5   6   7   8   9\n"
+        return(buffer)
+>>>>>>> b5cbdde35b734a34dc64318d7aa669106c0068fd
     def déplacer_jeton(self, joueur, position):
         self.joueur = int(joueur)
         if self.joueur ==1:
@@ -67,6 +109,7 @@ class Quoridor:
             self.pos2 = position
         if 2<(self.joueur)<1 : 
             raise IndexError('numéro du joueur pas valide')
+<<<<<<< HEAD
         if 9<int(self.position[0])<1 and 9<int(self.position[1])<1:
             raise IndexError('position pas valdie')
 
@@ -80,6 +123,21 @@ class Quoridor:
 #a= {"joueurs": [{"nom": "idul", "murs": 7, "pos": [5, 9]}, {"nom": "automate", "murs": 3, "pos": [5, 1]}],
 # "murs": {"horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
 # "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]}}#juste pour tester
+=======
+        if 9<int(position[0])<1 and 9<int(position[1])<1:
+            raise IndexError('position pas valdie')
+    def état_partie(self):
+        V = []
+        H = []
+        H += self.murs_h
+        V += self.murs_v
+        return {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1 },
+                {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}
+
+#a= {"joueurs": [{"nom": "idul", "murs": 7, "pos": [5, 9]}, {"nom": "automate", "murs": 3, "pos": [5, 1]}],
+ #"murs": {"horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
+ #"verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]}}#juste pour tester
+>>>>>>> b5cbdde35b734a34dc64318d7aa669106c0068fd
 #b = Quoridor(a)#juste pour tester
 #print(b) #juste pour tester
 
