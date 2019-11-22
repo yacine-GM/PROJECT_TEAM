@@ -2,14 +2,18 @@ class Quoridor:
 
     def __init__(self, joueurs, murs=None):
         if type(joueurs) is str:
-            self.nom = joueurs.split()[0]
-            self.pos = joueurs.split()[1]
-            self.murs = '10'
+            self.nom1 = joueurs.split()[0][0]
+            self.pos1 = joueurs.split()[0][1]
+            self.murs1i = joueurs.split()[0][2]
+            self.nom2 = joueurs.split()[1][0]
+            self.pos2 = joueurs.split()[1][1]
+            self.murs2i = joueurs.split()[1][2]
+
         if type(joueurs) is dict:
-            self.nom1= joueurs['joueurs'][0]['nom']
+            self.id1= joueurs['joueurs'][0]['nom']
             self.pos1 = joueurs['joueurs'][0]['pos']
             self.murs1 = joueurs['joueurs'][0]['murs']
-            self.nom2= joueurs['joueurs'][1]['nom']
+            self.id2= joueurs['joueurs'][1]['nom']
             self.pos2 = joueurs['joueurs'][1]['pos']
             self.murs2 = joueurs['joueurs'][1]['murs']
             self.murs = joueurs['murs']
@@ -28,6 +32,8 @@ class Quoridor:
         for i, j in enumerate(joueurs['joueurs']):
             if i>1:
                 raise IndexError('le jeu accepte as plue que 2 joueurs ')#si l'itérable de joueurs en contient plus de deux
+        if (int(self.murs1i)- int(self.murs1) + int(self.murs2i) - int(self.murs2))> 20:
+            raise IndexError('les nombre de murs est incorrecte ')#si le total des murs placés et plaçables n'est pas égal à 20
         def __str__(self):
             A = (f' legende : 1  2 = automate')
             B = ('   -----------------------------------')
@@ -51,6 +57,22 @@ class Quoridor:
             D = ('--|-----------------------------------')
             E = ('  | 1   2   3   4   5   6   7   8   9')
             return A+ '\n' + B+'\n' +C+'\n' +D + '\n' + E
+            def déplacer_jeton(self, joueur, position):
+                self.joueur = int(joueur)
+                if self.joueur ==1:
+                    self.pos1 = position
+                else:
+                    self.pos2 = position
+                if 2<(self.joueur)<1 : 
+                    raise IndexError('numéro du joueur pas valide')
+                if 9<int(self.position[0])<1 and 9<int(self.position[1])<1:
+                    raise IndexError('position pas valdie')
+            def état_partie(self):
+                return {
+            'joueurs': [{'nom': self.nom1, 'murs': int(self.murs1i) - int(self.murs1), 'pos':self.pos1 },
+                {'nom': self.nom2, 'murs': int(self.murs2i) - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': self.murs_h, 'verticaux': self.murs_v}}
+
+
 
 a= {"joueurs": [{"nom": "idul", "murs": 7, "pos": [5, 9]}, {"nom": "automate", "murs": 3, "pos": [5, 1]}],
  "murs": {"horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
