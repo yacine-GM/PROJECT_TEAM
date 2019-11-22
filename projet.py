@@ -79,3 +79,63 @@ a= {"joueurs": [{"nom": "idul", "murs": 7, "pos": [5, 9]}, {"nom": "automate", "
  "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]}}#juste pour tester
 b = Quoridor(a)#juste pour tester
 print(b) #juste pour tester
+
+
+
+import networkx as nx
+
+
+def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
+    self.joueur = (self.pos1, self.pos2)
+    self.murs_horizontaux = (list(self.murs_h))
+    self.murs_verticaux = (list(self.murs_v))
+    graph = nx.DiGraph()
+    for x in range(1, 10):
+        if x > 1:
+            graphe.add_edge((x, y), (x-1, y))
+        if x < 9:
+            graphe.add_edge((x,y), (x+1, y))
+        if y > 1:
+            graphe.add_edge((x, y), (x, y-1))
+        if y > 9:
+            graphe.add_edge((x,y), (x, Y+1))
+    for x,y in murs_horizontaux:
+        graphe.remove_edge((x, y-1), (x, y))
+        graphe.remove_edge((x, y), (x, y-1))
+        graphe.remove_edge((x+1, y-1), (x+1, y))
+        graphe.remove_edge((x+1, y), (x+1, y-1))
+
+    for x, y in murs_verticaux:
+        graphe.remove_edge((x-1, y), (x, y))
+        graphe.remove_edge((x, y), (x-1, y))
+        graphe.remove_edge((x, y+1), (x-1, Y+1))
+        graphe.remove_edge((x-1, y+1), (x, y+1))
+    for joueur in map(tuple,joueurs):
+        for prédécesseur in list(graphe.predessors(joueur)):
+            graphe.remove_edge(prédécesseur, joueur)
+            successeur = (2*joueur[0] - prédécesseur[0], 2*joueur[1] - prédécesseur[1])
+            if successeur in graphe.successors(joueur) and successeur not in joueurs: 
+                graphe.add_edge(prédécesseur, successeur)
+            else:
+                 for successeur in list(graphe.successors(joueur)):
+                    if prédécesseur != successeur and successeur not in joueurs:
+                        graphe.add_edge(prédécesseur, successeur)
+    for x in range(1, 10):
+        graphe.add_edge((x, 9), 'B1')
+        graphe.add_edge((x, 1), 'B2')
+
+    return graphe
+
+def joueur_coup(self, joueur):
+    self.joueur = int(joueur)
+    if self.joueur == 1:
+        if nx.has_path(graphe, pos1, 'B1') < nx.has_path(graphe, pos2, 'B2'):
+            return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos1, 'B1'))
+        else:
+            return placer_mur()
+    if self.joueur == 2:
+        if nx.has_path(graphe, pos2, 'B2') < nx.has_path(graphe, pos1, 'B1'):
+            return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos2, 'B2'))
+        else:
+            return placer_mur()
+
