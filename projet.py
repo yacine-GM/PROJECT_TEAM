@@ -34,62 +34,65 @@ class Quoridor:
                 raise IndexError('le jeu accepte as plue que 2 joueurs ')#si l'itérable de joueurs en contient plus de deux
         if (int(self.murs1i)- int(self.murs1) + int(self.murs2i) - int(self.murs2))> 20:
             raise IndexError('les nombre de murs est incorrecte ')#si le total des murs placés et plaçables n'est pas égal à 20
-        def __str__(self):
-            A = (f' legende : 1  2 = automate')
-            B = ('   -----------------------------------')
-            TAB = [[' 'for i in range(39)]for j in range(17)]
-            for i, j in enumerate(TAB[::2]):
-                    j[0] = str(9-i)
-                    j[2] = '|'
-                    j[38] = '|'
-                    for L in range(4, 39, 4):
-                        j[L] = '.'
-            for j in TAB[1::2]:
-                j[2] = j[38] = '|'
-            TAB0 = []
-            for j in TAB:
-                TAB0 = TAB0 + j +['\n']
-            TAB0.pop()
-            TAB = list(TAB0)
-            TAB0[(18-(int(self.pos1[1]))*2)*40+ 4 *(int(self.pos1[0]))] = '2'
-            TAB0[(18-(int(self.pos2[1]))*2)*40 + 4 *(int(self.pos2[0]))] = '1'
-            C = (''.join(TAB0))
-            D = ('--|-----------------------------------')
-            E = ('  | 1   2   3   4   5   6   7   8   9')
-            return A+ '\n' + B+'\n' +C+'\n' +D + '\n' + E
-            def déplacer_jeton(self, joueur, position):
-                self.joueur = int(joueur)
-                if self.joueur ==1:
-                    self.pos1 = position
-                else:
-                    self.pos2 = position
-                if 2<(self.joueur)<1 : 
-                    raise IndexError('numéro du joueur pas valide')
-                if 9<int(self.position[0])<1 and 9<int(self.position[1])<1:
-                    raise IndexError('position pas valdie')
-            def état_partie(self):
-                return {
-            'joueurs': [{'nom': self.nom1, 'murs': int(self.murs1i) - int(self.murs1), 'pos':self.pos1 },
-                {'nom': self.nom2, 'murs': int(self.murs2i) - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': self.murs_h, 'verticaux': self.murs_v}}
+
+    def __str__(self):
+        A = (f' legende : 1  2 = automate')
+        B = ('   -----------------------------------')
+        TAB = [[' 'for i in range(39)]for j in range(17)]
+        for i, j in enumerate(TAB[::2]):
+                j[0] = str(9-i)
+                j[2] = '|'
+                j[38] = '|'
+                for L in range(4, 39, 4):
+                    j[L] = '.'
+        for j in TAB[1::2]:
+            j[2] = j[38] = '|'
+        TAB0 = []
+        for j in TAB:
+            TAB0 = TAB0 + j +['\n']
+        TAB0.pop()
+        TAB = list(TAB0)
+        TAB0[(18-(int(self.pos1[1]))*2)*40+ 4 *(int(self.pos1[0]))] = '2'
+        TAB0[(18-(int(self.pos2[1]))*2)*40 + 4 *(int(self.pos2[0]))] = '1'
+        C = (''.join(TAB0))
+        D = ('--|-----------------------------------')
+        E = ('  | 1   2   3   4   5   6   7   8   9')
+        return A+ '\n' + B+'\n' +C+'\n' +D + '\n' + E
+
+    def déplacer_jeton(self, joueur, position):
+        self.joueur = int(joueur)
+        if self.joueur ==1:
+            self.pos1 = position
+        else:
+            self.pos2 = position
+        if 2<(self.joueur)<1 : 
+            raise IndexError('numéro du joueur pas valide')
+        if 9<int(self.position[0])<1 and 9<int(self.position[1])<1:
+            raise IndexError('position pas valdie')
+
+    def état_partie(self):
+        return {
+    'joueurs': [{'nom': self.nom1, 'murs': int(self.murs1i) - int(self.murs1), 'pos':self.pos1 },
+        {'nom': self.nom2, 'murs': int(self.murs2i) - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': self.murs_h, 'verticaux': self.murs_v}}
 
 
 
-a= {"joueurs": [{"nom": "idul", "murs": 7, "pos": [5, 9]}, {"nom": "automate", "murs": 3, "pos": [5, 1]}],
- "murs": {"horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
- "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]}}#juste pour tester
-b = Quoridor(a)#juste pour tester
-print(b) #juste pour tester
+#a= {"joueurs": [{"nom": "idul", "murs": 7, "pos": [5, 9]}, {"nom": "automate", "murs": 3, "pos": [5, 1]}],
+# "murs": {"horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
+# "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]}}#juste pour tester
+#b = Quoridor(a)#juste pour tester
+#print(b) #juste pour tester
 
 
 
 import networkx as nx
 
 
-def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
+def construire_graphe(self,joueurs, murs_horizontaux, murs_verticaux):
     self.joueur = (self.pos1, self.pos2)
     self.murs_horizontaux = (list(self.murs_h))
     self.murs_verticaux = (list(self.murs_v))
-    graph = nx.DiGraph()
+    graphe = nx.DiGraph()
     for x in range(1, 10):
         if x > 1:
             graphe.add_edge((x, y), (x-1, y))
@@ -126,7 +129,7 @@ def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
 
     return graphe
 
-def joueur_coup(self, joueur):
+def joueur_coup(self, joueur):#mmh je crois que 
     self.joueur = int(joueur)
     if self.joueur == 1:
         if nx.has_path(graphe, pos1, 'B1') < nx.has_path(graphe, pos2, 'B2'):
