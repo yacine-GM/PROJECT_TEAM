@@ -175,6 +175,8 @@ def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
                 graphe.add_edge((x, y), (x, y-1))
             if y < 9:
                 graphe.add_edge((x, y), (x, y+1))
+            if x, y == 0:
+                graphe.init()
      # on a juste a mettre une condition dans le cas ou on a pas de murs c a dire a l'état initial
      
     #for x, y in murs_horizontaux:
@@ -228,3 +230,17 @@ print(z)#je ne sais pas pour vous mais je fais mes test dans le notebook vous po
 }
 graphe = construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux'])
 '''
+'''
+def partie_terminée(self):
+    if self.pos1 == (5,1):
+        return (print(f'Le gagnant est {idul}))
+    if self.pos2 == (5,9):
+        return (print('Le gagnant est l'automate'))
+    else:
+        return False
+
+def placer_mur(self, joueur, position, orientation):
+    self.joueur = int(joueur)
+    self.position = (x, y)
+
+
