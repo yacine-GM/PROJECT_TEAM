@@ -205,18 +205,57 @@ class Quoridor:
             if nx.has_path(graphe, pos1, 'B1') < nx.has_path(graphe, pos2, 'B2'):
                 return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos1, 'B1'))
             else:
-                return placer_mur()
+                 x = input('Coordonées x du mur ')
+                 y = input('Coordonnées y du mur ')
+                 orientation = input('Orientation du mur ')
+                position = (int(x), int(y))
+                return placer_mur(self, joueur, position, orientation)
         if self.joueur == 2:
             if nx.has_path(graphe, pos2, 'B2') < nx.has_path(graphe, pos1, 'B1'):
                 return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos2, 'B2'))
             else:
-                return placer_mur()"""
+                 x = input('Coordonées x du mur ')
+                 y = input('Coordonnées y du mur ')
+                 orientation = input('Orientation du mur ')
+                 position = (int(x), int(y))
+                 return placer_mur(self, joueur, position, orientation)"""
 
 
-    def placer_mur(self, joueur, position, orientation):
-        self.joueur = int(joueur)
-        #self.position = (x, y)
+def placer_mur(self, joueur, position, orientation):
+    self.position = (x, y)
+    self.joueur = int(joueur)
+    état["joueurs"][joueur]["murs"] += 1
+    if self.orientation == "horizontaux" or "verticaux":
+        return ((état['murs'][orientation]).append(position))
+    return(état) #retourne la nouvelle forme de l'état avec le nouveau mur
+    graphe =  construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux'])
+    raise TypeError('QuoridorError') if self.joueur != 0 or 1
+    raise TypeError('QuoridorError') if self.position == i for i in list(état['murs'][self.orientation]) 
+    raise TypeError('QuoridorError') if  self.position != #je n'arrive pas a trouvé pour l'erreur d'orientation
+    raise TypeError('QuoridorError') if (état["joueurs"][joueur]["murs"]]
 
+'''
+if self.joueur == 1: #une autre manière avec les variables de def etat_partie mais je suis pas sur que ça marche 
+        if orientation == 'horizontal':
+            self.orientation = self.murs_h
+        return (H.append(self.position) and (int(murs2)).add(1))
+        if orientation == 'vertical':
+            self.orientation == self.murs_v
+        return(V.append(self.possition) and ((int(murs2)).add(1))) 
+
+if self.joueur == 0:
+        if orientation == 'horizontal':
+            self.orientation = self.murs_h
+        return (H.append(self.position) and (int(murs1)).add(1))
+        if orientation == 'vertical':
+            self.orientation == self.murs_v
+        return(V.append(self.possition) and ((int(murs1)).add(1)))
+
+    raise TypeError('QuoridorError') if self.joueur != 0 or 1
+    raise TypeError('QuoridorError') if self.position == i for i in list(H) or self.position == v for v in list(V)
+    raise TypeError('QuoridorError') if  self.position 
+    raise TypeError('QuoridorError') if (10 - int(self.murs1) == 0) or (10 - int(self.murs2)) == 0
+'''
 
 
     def partie_terminée(self):
