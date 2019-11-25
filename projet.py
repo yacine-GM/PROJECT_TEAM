@@ -156,21 +156,21 @@ b = Quoridor(a)
 print(b)
 
 
-def placer_mur(self, joueur, position, orientation):
-    self.position = (x, y)
-    self.joueur = int(joueur)
-    état["joueurs"][joueur]["murs"] += 1
-    if self.orientation == "horizontaux" or "verticaux":
-        return ((état['murs'][orientation]).append(position))
-    return(état) #retourne la nouvelle forme de l'état avec le nouveau mur
-    graphe =  construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux'])
-    raise TypeError('QuoridorError') if self.joueur != 0 or 1
-    raise TypeError('QuoridorError') if self.position == i for i in list(état['murs'][self.orientation]) 
-    raise TypeError('QuoridorError') if  self.position != #je n'arrive pas a trouvé pour l'erreur d'orientation
-    raise TypeError('QuoridorError') if (état["joueurs"][joueur]["murs"]]
+    def placer_mur(self, joueur, position, orientation):
+        self.position = (x, y)
+        self.joueur = int(joueur)
+        état["joueurs"][joueur]["murs"] += 1
+        if self.orientation == "horizontaux" or "verticaux":
+            return ((état['murs'][orientation]).append(position))
+        return(état) #retourne la nouvelle forme de l'état avec le nouveau mur
+        graphe =  construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux'])
+        raise TypeError('QuoridorError') if self.joueur != 0 or 1 
+        raise TypeError('QuoridorError') if self.position == i for i in list(état['murs'][self.orientation]) 
+        raise TypeError('QuoridorError') if  self.position != #je n'arrive pas a trouvé pour l'erreur d'orientation
+        raise TypeError('QuoridorError') if (état["joueurs"][joueur]["murs"]]
 
-'''
-if self.joueur == 1: #une autre manière avec les variables de def etat_partie mais je suis pas sur que ça marche 
+    '''
+    if self.joueur == 1: #une autre manière avec les variables de def etat_partie mais je suis pas sur que ça marche 
         if orientation == 'horizontal':
             self.orientation = self.murs_h
         return (H.append(self.position) and (int(murs2)).add(1))
@@ -178,7 +178,7 @@ if self.joueur == 1: #une autre manière avec les variables de def etat_partie m
             self.orientation == self.murs_v
         return(V.append(self.possition) and ((int(murs2)).add(1))) 
 
-if self.joueur == 0:
+    if self.joueur == 0:
         if orientation == 'horizontal':
             self.orientation = self.murs_h
         return (H.append(self.position) and (int(murs1)).add(1))
