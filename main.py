@@ -37,6 +37,7 @@ def afficher_damier_ascii(idul, etat):
     #ajouter les murs dans le damier
     list_hor = etat['murs']['horizontaux']
     list_ver = etat['murs']['verticaux']
+
     for coord in list_hor:
         y = 9-coord[1]
         x = 4+(coord[0]-1)*4
@@ -47,12 +48,14 @@ def afficher_damier_ascii(idul, etat):
         mat_open[y][x+3] = '-'
         mat_open[y][x+4] = '-'
         mat_open[y][x+5] = '-'
+
     for coord in list_ver:
         y = y = 9-coord[1]
         x = 4+(coord[0]-1)*4
         mat_line[y][x-2] = '|'
         mat_open[y-1][x-2] = '|'
         mat_line[y-1][x-2] = '|'
+        
     for i in range(len(mat_line)):
         buffer += ''.join(mat_line[i])
         if i < len(mat_open):

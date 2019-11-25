@@ -36,6 +36,8 @@ class Quoridor:
         if type(self.murs) is not dict:
             raise KeyError("la variable mur n'est pas un dictionnaire" )#si murs n'est pas un dictionnaire lorsque présent
 
+    
+
     def __str__(self):           
         buffer = f"\nLégende: 1={self.nom1}, 2={self.nom2}\n"
         buffer += f"   -----------------------------------\n"
@@ -77,26 +79,6 @@ class Quoridor:
         buffer += "--|-----------------------------------\n"
         buffer += "  | 1   2   3   4   5   6   7   8   9\n"
         return(buffer)
-
-    def déplacer_jeton(self, joueur, position):
-        self.joueur = int(joueur)
-        if self.joueur ==1:
-            self.pos1 = position
-        else:
-            self.pos2 = position
-        if 2<(self.joueur)<1 : 
-            raise IndexError('numéro du joueur pas valide')
-        if 9<int(position[0])<1 and 9<int(position[1])<1:
-            raise IndexError('position pas valdie')
-    
-    def état_partie(self):
-        V = []
-        H = []
-        H += self.murs_h
-        V += self.murs_v
-        F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1 },
-                {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}    
-        return F
 
     def jouer_coup(self, joueur):
         
@@ -168,28 +150,27 @@ class Quoridor:
             raise TypeError('QuoridorError') 
         print(graphe = construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux']))
 
-        """
-        if self.joueur == 1: #une autre manière avec les variables de def etat_partie mais je suis pas sur que ça marche 
-            if orientation == 'horizontal':
-                self.orientation = self.murs_h
-            return (H.append(self.position) and (int(murs2)).add(1))
-            if orientation == 'vertical':
-                self.orientation == self.murs_v
-            return(V.append(self.possition) and ((int(murs2)).add(1))) 
+    def déplacer_jeton(self, joueur, position):
+        self.joueur = int(joueur)
+        self.pos1 = position
+        if self.joueur ==1:
+            self.pos1 = position
+        else:
+            self.pos2 = position
+        if 2<(self.joueur)<1 : 
+            raise IndexError('numéro du joueur pas valide')
+        if 9<int(position[0])<1 and 9<int(position[1])<1:
+            raise IndexError('position pas valdie')
 
-        if self.joueur == 0:
-            if orientation == 'horizontal':
-                self.orientation = self.murs_h
-            return (H.append(self.position) and (int(murs1)).add(1))
-            if orientation == 'vertical':
-                self.orientation == self.murs_v
-            return(V.append(self.possition) and ((int(murs1)).add(1)))
+    def état_partie(self):
+        V = []
+        H = []
+        H += self.murs_h
+        V += self.murs_v
+        F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1 },
+                {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}    
+        return F
 
-        raise TypeError('QuoridorError') if self.joueur != 0 or 1
-        raise TypeError('QuoridorError') if self.position == i for i in list(H) or self.position == v for v in list(V)
-        raise TypeError('QuoridorError') if  self.position 
-        raise TypeError('QuoridorError') if (10 - int(self.murs1) == 0) or (10 - int(self.murs2)) == 0
-    """
     def partie_terminée(self):
         if self.pos1 == (5,1):
             return (print(f'Le gagnant est {idul}'))
@@ -198,17 +179,20 @@ class Quoridor:
         else:
             return False
 
-a= {"joueurs": [{"nom": "idul", "murs": 7, "pos": [5, 9]}, {"nom": "automate", "murs": 3, "pos": [5, 1]}], "murs": {"horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]], "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]}}
+a= {"joueurs": [{"nom": "idul", "murs": 10, "pos": [5, 9]}, {"nom": "automate", "murs": 10, "pos": [5, 1]}], "murs": {"horizontaux": [], "verticaux": []}}
 b = Quoridor(a)
 print(b)
 
-état = {
-    "joueurs": [
-        {"nom": "idul", "murs": 7, "pos": [5, 6]},
-        {"nom": "automate", "murs": 3, "pos": [5, 7]}
-    ],
-    "murs": {
-        "horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
-        "verticaux": [[6, 2], [4, 4], [2, 5], [7, 5], [7, 7]]
-    }
-}
+
+"""
+test = nx.shortest_path(graphe, (5, 1), 'B1')
+print(test)
+"""
+#def __seterpos__(self, pos1, pos2):
+    #self.pos1= 
+
+#L'ordre des fonctions
+#Comment update l'état et le retourner
+#comment utiliser jouer_coup
+
+#print(quoridor())
