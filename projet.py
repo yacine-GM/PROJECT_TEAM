@@ -35,8 +35,8 @@ class Quoridor:
             raise IndexError('les nombre de murs est incorrecte ')#si le total des murs placés et plaçables n'est pas égal à 20
         if type(self.murs) is not dict:
             raise KeyError("la variable mur n'est pas un dictionnaire" )#si murs n'est pas un dictionnaire lorsque présent
-    def __str__(self):
-           
+
+    def __str__(self):           
         buffer = f"\nLégende: 1={self.nom1}, 2={self.nom2}\n"
         buffer += f"   -----------------------------------\n"
         mat_line = []
@@ -77,6 +77,7 @@ class Quoridor:
         buffer += "--|-----------------------------------\n"
         buffer += "  | 1   2   3   4   5   6   7   8   9\n"
         return(buffer)
+
     def déplacer_jeton(self, joueur, position):
         self.joueur = int(joueur)
         if self.joueur ==1:
@@ -149,14 +150,7 @@ class Quoridor:
         construire_graphe(self.pos1, self.murs_h,self.murs_v)
         return(construire_graphe)
         
-    
-
-a = {"joueurs": [{"nom": "idul", "murs": 10, "pos": [5, 1]}, {"nom": "automate", "murs": 10, "pos": [5, 9]}], "murs": {"horizontaux": [], "verticaux": []}}
-b = Quoridor(a)
-print(b)
-
-
-    def placer_mur(self, joueur, position, orientation):
+    def placer_mur(self, joueur, position, orientation):    
         self.position = (x, y)
         self.joueur = int(joueur)
         état["joueurs"][joueur]["murs"] += 1
@@ -164,35 +158,38 @@ print(b)
             return ((état['murs'][orientation]).append(position))
         return(état) #retourne la nouvelle forme de l'état avec le nouveau mur
         graphe =  construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux'])
-        raise TypeError('QuoridorError') if self.joueur != 0 or 1 
-        raise TypeError('QuoridorError') if self.position == i for i in list(état['murs'][self.orientation]) 
-        raise TypeError('QuoridorError') if  self.position != #je n'arrive pas a trouvé pour l'erreur d'orientation
-        raise TypeError('QuoridorError') if (état["joueurs"][joueur]["murs"]]
+        if self.joueur != 0 or self.joueur != 1:
+                raise TypeError('QuoridorError')
+        if self.position in list(état['murs'][self.orientation]) == 1:
+            raise TypeError('QuoridorError') 
+        #if  self.position != #je n'arrive pas a trouvé pour l'erreur d'orientation
+            #raise TypeError('QuoridorError') 
+        if (état[["joueurs"][joueur]["murs"]]):
+            raise TypeError('QuoridorError') 
+        print(graphe = construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux']))
 
-    '''
-    if self.joueur == 1: #une autre manière avec les variables de def etat_partie mais je suis pas sur que ça marche 
-        if orientation == 'horizontal':
-            self.orientation = self.murs_h
-        return (H.append(self.position) and (int(murs2)).add(1))
-        if orientation == 'vertical':
-            self.orientation == self.murs_v
-        return(V.append(self.possition) and ((int(murs2)).add(1))) 
+        """
+        if self.joueur == 1: #une autre manière avec les variables de def etat_partie mais je suis pas sur que ça marche 
+            if orientation == 'horizontal':
+                self.orientation = self.murs_h
+            return (H.append(self.position) and (int(murs2)).add(1))
+            if orientation == 'vertical':
+                self.orientation == self.murs_v
+            return(V.append(self.possition) and ((int(murs2)).add(1))) 
 
-    if self.joueur == 0:
-        if orientation == 'horizontal':
-            self.orientation = self.murs_h
-        return (H.append(self.position) and (int(murs1)).add(1))
-        if orientation == 'vertical':
-            self.orientation == self.murs_v
-        return(V.append(self.possition) and ((int(murs1)).add(1)))
+        if self.joueur == 0:
+            if orientation == 'horizontal':
+                self.orientation = self.murs_h
+            return (H.append(self.position) and (int(murs1)).add(1))
+            if orientation == 'vertical':
+                self.orientation == self.murs_v
+            return(V.append(self.possition) and ((int(murs1)).add(1)))
 
-    raise TypeError('QuoridorError') if self.joueur != 0 or 1
-    raise TypeError('QuoridorError') if self.position == i for i in list(H) or self.position == v for v in list(V)
-    raise TypeError('QuoridorError') if  self.position 
-    raise TypeError('QuoridorError') if (10 - int(self.murs1) == 0) or (10 - int(self.murs2)) == 0
-'''
-
-
+        raise TypeError('QuoridorError') if self.joueur != 0 or 1
+        raise TypeError('QuoridorError') if self.position == i for i in list(H) or self.position == v for v in list(V)
+        raise TypeError('QuoridorError') if  self.position 
+        raise TypeError('QuoridorError') if (10 - int(self.murs1) == 0) or (10 - int(self.murs2)) == 0
+    """
     def partie_terminée(self):
         if self.pos1 == (5,1):
             return (print(f'Le gagnant est {idul}'))
@@ -215,4 +212,3 @@ print(b)
         "verticaux": [[6, 2], [4, 4], [2, 5], [7, 5], [7, 7]]
     }
 }
-#graphe = construire_graphe([joueur['pos'] for joueur in état['joueurs']], état['murs']['horizontaux'],état['murs']['verticaux'])
