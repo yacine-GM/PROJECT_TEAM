@@ -1,15 +1,17 @@
 import networkx as nx
+import api
+import main
 class Quoridor:
 
     def __init__(self, joueurs, murs = None):
-        if type(joueurs) is str:
+
+        if type(joueurs) is str:#si joueurs est un string, ca veut dire que c'est le debut de la partie
             self.nom = joueurs.split()[0]
             self.pos = joueurs.split()[1]
             self.murs = '10'
-
             for i, j in enumerate(joueurs):
                 if i>1:
-                    raise IndexError('le jeu accepte pas plue que 2 joueurs ')#si l'itérable de joueurs en contient plus de deux
+                    raise IndexError('Le jeu accepte pas plus que 2 joueurs.')#si l'itérable de joueurs en contient plus de deux
 
         if type(joueurs) is dict:
             self.nom1= joueurs['joueurs'][0]['nom']
@@ -28,10 +30,10 @@ class Quoridor:
         except TypeError: 
             raise TypeError('QuoridorError')#si joueurs n'est pas itérable
 
-        if 10 <self.murs1< 0 or 10 <self.murs2< 0 :
+        if 10 < self.murs1 < 0 or 10 < self.murs2 < 0 :
             raise IndexError('erreur dans le nombre de murs')#si le nombre de murs qu'un joueur peut placer est >10, ou négatif.
 
-        if (self.pos1)!= [5, 9] or (self.pos2) != [5, 1] :
+        if (self.pos1) != [5, 9] or (self.pos2) != [5, 1] :
             raise IndexError("la position n'est pas valide")#si la position d'un joueur est invalide
 
         if (10- int(self.murs1) + 10 - int(self.murs2))> 20:
@@ -90,7 +92,7 @@ class Quoridor:
     def déplacer_jeton(self, joueur, position):
         self.joueur = int(joueur)
 
-        #déinir position
+        #self.position = 
 
         if self.joueur ==1:
             self.pos1 = position
@@ -168,33 +170,52 @@ class Quoridor:
             graphe.add_edge((x, 1), 'B2')
 
             
+            """
         p = nx.shortest_path(graphe, (5,6), 'B1')#cette fonction nous permet d'avoir le chemin le plus rapide pour gangé
 
         z = p[1]# par défaut elle donne une liste ou le premiére position est la notre on a juste la choisir la deuxiéme 
         # et comme sa on a notre prochain coup,(prochaine position)
         print(z)#je ne sais pas pour vous mais je fais mes test dans le notebook vous pouvais juste copier sa et voir le résultat
-        
+        """ 
         return graphe
 
     
 
-        def joueur_coup(self, joueur):
-            self.joueur = int(joueur)
-            if self.joueur == 1:
-                if nx.has_path(graphe, pos1, 'B1') < nx.has_path(graphe, pos2, 'B2'):
-                    return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos1, 'B1'))
-                else:
-                    return placer_mur()
-            if self.joueur == 2:
-                if nx.has_path(graphe, pos2, 'B2') < nx.has_path(graphe, pos1, 'B1'):
-                    return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos2, 'B2'))
-                else:
-                    return placer_mur()
+    def joueur_coup(self, joueur):
+        self.joueur = int(joueur)
+        self.pos = position
+        graphe = construire_graphe(
+[joueur['pos'] for joueur in état['joueurs']], 
+état['murs']['horizontaux'],
+état['murs']['verticaux']
+)       
+        meilleur_traj = nx.shortest_path(graphe, self.pos, 'B1')
+        traj_dispo = list(graphe.successors((self.pos)))
+        #bouble avec while ?
+        if nx.has_path(graphe, self.pos, 'B1'):#on interroge le graph pour voir si le mur bloque pas entierement un joueur
+            pass #peut placer mur
+        if meilleur_traj[0] in traj_dispo[:]:# on regarde si on peut jouer la meilleur traj
+            self.pos = meilleur_traj[0]
+        
+        self.déplacer_jeton = (self.joueur, self.pos)
+        return self.déplacer_jeton
+
+        """
+        if self.joueur == 1:
+            if nx.has_path(graphe, pos1, 'B1') < nx.has_path(graphe, pos2, 'B2'):
+                return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos1, 'B1'))
+            else:
+                return placer_mur()
+        if self.joueur == 2:
+            if nx.has_path(graphe, pos2, 'B2') < nx.has_path(graphe, pos1, 'B1'):
+                return déplacer_jeton(self, joueur, position = nx.shortest_path(graphe, pos2, 'B2'))
+            else:
+                return placer_mur()"""
 
 
     def placer_mur(self, joueur, position, orientation):
         self.joueur = int(joueur)
-        self.position = (x, y)
+        #self.position = (x, y)
 
 
 
