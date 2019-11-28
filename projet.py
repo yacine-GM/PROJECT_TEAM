@@ -5,25 +5,25 @@ import main
 class Quoridor:
     
     
-    def __init__(self, joueurs, murs = None):
-        if type(joueurs) is str:
-            self.nom1 = joueurs[0]
-            self.nom2 = joueurs[1]
-            for i, j in enumerate(joueurs):
+    def __init__(self, Joueurs, Murs = None):
+        if type(Joueurs) is str:
+            self.nom1 = Joueurs[0]
+            self.nom2 = Joueurs[1]
+            for i, j in enumerate(Joueurs):
                 if i>1:
                     raise IndexError('le jeu accepte pas plue que 2 joueurs ')#si l'itérable de joueurs en contient plus de deux
-        if type(joueurs) is dict:
-            self.id1= joueurs['joueurs'][0]['nom']
-            self.pos1 = joueurs['joueurs'][0]['pos']
-            self.murs1 = joueurs['joueurs'][0]['murs']
-            self.id2= joueurs['joueurs'][1]['nom']
-            self.pos2 = joueurs['joueurs'][1]['pos']
-            self.murs2 = joueurs['joueurs'][1]['murs']
-            self.murs = joueurs['murs']
-            self.murs_h = joueurs['murs']['horizontaux']
-            self.murs_v = joueurs['murs']['verticaux']    
+        if type(Joueurs) is dict:
+            self.id1= Joueurs['joueurs'][0]['nom']
+            self.pos1 = Joueurs['joueurs'][0]['pos']
+            self.murs1 = Joueurs['joueurs'][0]['murs']
+            self.id2= Joueurs['joueurs'][1]['nom']
+            self.pos2 = Joueurs['joueurs'][1]['pos']
+            self.murs2 = Joueurs['joueurs'][1]['murs']
+            self.Murs = Joueurs['murs']
+            self.murs_h = Joueurs['murs']['horizontaux']
+            self.murs_v = Joueurs['murs']['verticaux']    
         try:
-            joueurs = iter(joueurs)
+            Joueurs = iter(Joueurs)
         except TypeError: 
             raise TypeError('QuoridorError')#si joueurs n'est pas itérable
         if 10 <self.murs1< 0 or 10 <self.murs2< 0 :
@@ -32,9 +32,8 @@ class Quoridor:
             raise IndexError("la position n'est pas valide")#si la position d'un joueur est invalide
         if (10- int(self.murs1) + 10 - int(self.murs2))> 20:
             raise IndexError('les nombre de murs est incorrecte ')#si le total des murs placés et plaçables n'est pas égal à 20
-        if type(self.murs) is not dict:
+        if type(self.Murs) is not dict:
             raise KeyError("la variable mur n'est pas un dictionnaire" )#si murs n'est pas un dictionnaire lorsque présent
-
         #:raises QuoridorError: si la position d'un mur est invalide.
     
 
@@ -80,21 +79,20 @@ class Quoridor:
         buffer += "  | 1   2   3   4   5   6   7   8   9\n"
         return(buffer)
 
-    def déplacer_jeton(self, joueur, position):
-        self.joueur = int(joueur)
-        self.pos1 = position
-        if self.joueur ==1:
-            self.pos1 = position
+    def Déplacer_jeton(self, Joueur, Position):
+        self.Joueur = int(Joueur)
+        self.pos1 = Position
+        if self.Joueur ==1:
+            self.pos1 = Position
         else:
-            self.pos2 = position
-        if 2<(self.joueur)<1 : 
+            self.pos2 = Position
+        if 2<(self.Joueur)<1 : 
             raise IndexError('numéro du joueur pas valide')
-        if 9<int(position[0])<1 and 9<int(position[1])<1:
+        if 9<int(Position[0])<1 and 9<int(Position[1])<1:
             raise IndexError('position pas valide')
-
         #:raises QuoridorError: si la position est invalide pour l'état actuel du jeu.
 
-    def état_partie(self):
+    def État_partie(self):
         V = []
         H = []
         H += self.murs_h
@@ -103,68 +101,71 @@ class Quoridor:
                 {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}    
         return F 
 
-    def jouer_coup(self, joueur):
+    def Jouer_coup(self, Joueur):
         
         if self.pos1 < self.pos2:
-            self.déplacer_jeton
+            self.Déplacer_jeton
         else:
-            self.placer_mur
+            self.Placer_mur
+        if self.Joueur != 0 or self.Joueur != 1:    
+            raise TypeError('QuoridorError')
+        if self.Partie_terminée:
+            raise TypeError('QuoridorError')
 
-        def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
-            graphe = nx.DiGraph()
+        def Construire_graphe(Joueurs, Murs_horizontaux, Murs_verticaux):
+            Graphe = nx.DiGraph()
             for x in range(1, 10):
                 for y in range(1, 10):
                     if x > 1:
-                        graphe.add_edge((x, y), (x-1, y))
+                        Graphe.add_edge((x, y), (x-1, y))
                     if x < 9:
-                        graphe.add_edge((x, y), (x+1, y))
+                        Graphe.add_edge((x, y), (x+1, y))
                     if y > 1:
-                        graphe.add_edge((x, y), (x, y-1))
+                        Graphe.add_edge((x, y), (x, y-1))
                     if y < 9:
-                        graphe.add_edge((x, y), (x, y+1))
-            if murs_horizontaux !=[]:
+                        Graphe.add_edge((x, y), (x, y+1))
+            if Murs_horizontaux !=[]:
         
-                for x, y in murs_horizontaux:
-                    graphe.remove_edge((x, y-1), (x, y))
-                    graphe.remove_edge((x, y), (x, y-1))
-                    graphe.remove_edge((x+1, y-1), (x+1, y))
-                    graphe.remove_edge((x+1, y), (x+1, y-1))
-            if murs_horizontaux !=[]:
-                for x, y in murs_verticaux:
-                    graphe.remove_edge((x-1, y), (x, y))
-                    graphe.remove_edge((x, y), (x-1, y))
-                    graphe.remove_edge((x-1, y+1), (x, y+1))
-                    graphe.remove_edge((x, y+1), (x-1, y+1))
+                for x, y in Murs_horizontaux:
+                    Graphe.remove_edge((x, y-1), (x, y))
+                    Graphe.remove_edge((x, y), (x, y-1))
+                    Graphe.remove_edge((x+1, y-1), (x+1, y))
+                    Graphe.remove_edge((x+1, y), (x+1, y-1))
+            if Murs_horizontaux !=[]:
+                for x, y in Murs_verticaux:
+                    Graphe.remove_edge((x-1, y), (x, y))
+                    Graphe.remove_edge((x, y), (x-1, y))
+                    Graphe.remove_edge((x-1, y+1), (x, y+1))
+                    Graphe.remove_edge((x, y+1), (x-1, y+1))
 
-            for joueur in map(tuple, joueurs):
+            for Joueur in map(tuple, Joueurs):
 
-                for prédécesseur in list(graphe.predecessors(joueur)):
-                    graphe.remove_edge(prédécesseur, joueur)
+                for Prédécesseur in list(Graphe.Predecessors(Joueur)):
+                    Graphe.remove_edge(Prédécesseur, Joueur)
 
-                successeur = (2*joueur[0]-prédécesseur[0], 2*joueur[1]-prédécesseur[1])
+                Successeur = (2*Joueur[0]-Prédécesseur[0], 2*Joueur[1]-Prédécesseur[1])
 
-            if successeur in graphe.successors(joueur) and successeur not in joueurs:
-                graphe.add_edge(prédécesseur, successeur)
+            if Successeur in Graphe.Successors(Joueur) and Successeur not in Joueurs:
+                Graphe.add_edge(Prédécesseur, Successeur)
 
             else:
-                for successeur in list(graphe.successors(joueur)):
-                    if prédécesseur != successeur and successeur not in joueurs:
-                        graphe.add_edge(prédécesseur, successeur)
+                for Successeur in list(Graphe.Successors(Joueur)):
+                    if Prédécesseur != Successeur and Successeur not in Joueurs:
+                        Graphe.add_edge(Prédécesseur, Successeur)
 
             for x in range(1, 10):
-                graphe.add_edge((x, 9), 'B1')
-                graphe.add_edge((x, 1), 'B2')
-            p = nx.shortest_path(graphe, self.pos1, 'B1')
-            self.pos1 = p[1]
+                Graphe.add_edge((x, 9), 'B1')
+                Graphe.add_edge((x, 1), 'B2')
+            P = nx.shortest_path(Graphe, self.pos1, 'B1')
+            self.pos1 = P[1]
             return (self.pos1)
 
-        construire_graphe(self.pos1, self.murs_h,self.murs_v)
-        return(construire_graphe)
-
+        Construire_graphe(self.pos1, self.murs_h,self.murs_v)
+        return(Construire_graphe)
         #:raises QuoridorError: si le numéro du joueur est autre que 1 ou 2.
-        #:raises QuoridorError: si la partie est déjà terminée.
+        #:raises QuoridorError: si la partie est déjà terminée. (Ils sont mis au niveau du jouer_coup)
 
-    def partie_terminée(self):
+    def Partie_terminée(self):
         if self.pos1 == ('B1'):
             return (print(f'Le gagnant est {self.nom1}'))
         if self.pos2 == ('B2'):
@@ -172,25 +173,27 @@ class Quoridor:
         else:
             return False
 
-    def placer_mur(self, joueur, position, orientation):    
-        self.joueur = int(joueur)
-        if self.joueur == 1:
-            self.position = position
-            if orientation == 'horizontal':
-                self.murs_h = self.position
-            if orientation == 'vertical':
-                self.murs_v = self.position     
-"""
-            if self.joueur != 0 or self.joueur != 1:
+    def Placer_mur(self, Joueur, Position, Orientation):    
+        self.Joueur = int(Joueur)
+        if self.Joueur == 1:
+            self.Position = Position
+            if Orientation == 'horizontal':
+                self.murs_h = self.Position
+            if Orientation == 'vertical':
+                self.murs_v = self.Position     
+
+            if self.Joueur != 0 or self.Joueur != 1:
                     raise TypeError('QuoridorError')
-            if self.position in list(état['murs'][self.orientation]) == 1:
+            if self.Position == list(self.Murs):
                 raise TypeError('QuoridorError') 
-            #if  self.position != #je n'arrive pas a trouvé pour l'erreur d'orientation
+            #if  position invalide pour l'orientation
                 #raise TypeError('QuoridorError') 
-            if :
+            if  10 - int(self.murs1) == 0:
+                raise TypeError('QuoridorError')
+            if  10 - int(self.murs2) == 0:
                 raise TypeError('QuoridorError') 
         #gestion erreur
-        """
+
         
 a= {"joueurs": [{"nom": "idul", "murs": 10, "pos": [5, 1]}, {"nom": "automate", "murs": 10, "pos": [5, 9]}], "murs": {"horizontaux": [], "verticaux": []}}
 b = Quoridor(a)
