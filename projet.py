@@ -2,16 +2,18 @@ import networkx as nx
 import api
 import main
 
+class QuoridorError(Exception):
+        pass
 class Quoridor:
-    
+  
     
     def __init__(self, Joueurs, Murs = None):
         if type(Joueurs) is str:
             self.nom1 = Joueurs[0]
             self.nom2 = Joueurs[1]
             for i, j in enumerate(Joueurs):
-                if i>1:
-                    raise IndexError('le jeu accepte pas plue que 2 joueurs ')#si l'itérable de joueurs en contient plus de deux
+                if i > 1:#si l'itérable de joueurs en contient plus de deux
+                    raise QuoridorError('Le jeu accepte pas plus de 2 joueurs.')
         if type(Joueurs) is dict:
             self.id1= Joueurs['joueurs'][0]['nom']
             self.pos1 = Joueurs['joueurs'][0]['pos']
@@ -22,19 +24,18 @@ class Quoridor:
             self.Murs = Joueurs['murs']
             self.murs_h = Joueurs['murs']['horizontaux']
             self.murs_v = Joueurs['murs']['verticaux']    
-        try:
-            Joueurs = iter(Joueurs)
-        except TypeError: 
-            raise TypeError('QuoridorError')#si joueurs n'est pas itérable
+        #if Joueurs != int(Joueurs):
+         #   raise QuoridorError("Le joueur spécifié n'est pas un itérable.")
         if 10 <self.murs1< 0 or 10 <self.murs2< 0 :
-            raise IndexError('erreur dans le nombre de murs')#si le nombre de murs qu'un joueur peut placer est >10, ou négatif.
+            raise QuoridorError('Le nombre de mur est impossible.')#si nbr mur placé est>10,ou négatif
         if self.pos1 != [5, 1] or self.pos2 != [5, 9]:
-            raise IndexError("la position n'est pas valide")#si la position d'un joueur est invalide
+            raise QuoridorError("La position d'un joueur n'est pas valide.")#si la pos d'un joueur est invalide
         if (10- int(self.murs1) + 10 - int(self.murs2))> 20:
-            raise IndexError('les nombre de murs est incorrecte ')#si le total des murs placés et plaçables n'est pas égal à 20
+            raise QuoridorError('Le nombre de mur est impossible.')#si le total des murs placés et plaçables n'est pas égal à 20
         if type(self.Murs) is not dict:
-            raise KeyError("la variable mur n'est pas un dictionnaire" )#si murs n'est pas un dictionnaire lorsque présent
-        #:raises QuoridorError: si la position d'un mur est invalide.
+            raise QuoridorError("La variable mur n'est pas un dictionnaire.")#si murs n'est pas un dictionnaire lorsque présent
+        #if self.Murs position impossible:
+            #raise QuoridorError("La position du mur donné n'est pas valide")
     
 
     def __str__(self):           
@@ -87,10 +88,11 @@ class Quoridor:
         else:
             self.pos2 = Position
         if 2<(self.Joueur)<1 : 
-            raise IndexError('numéro du joueur pas valide')
+            raise QuoridorError('numéro du joueur pas valide.')
         if 9<int(Position[0])<1 and 9<int(Position[1])<1:
-            raise IndexError('position pas valide')
-        #:raises QuoridorError: si la position est invalide pour l'état actuel du jeu.
+            raise QuoridorError('position pas valide.')
+        if self.Position != self.pos1:
+            raise QuoridorError("La positione entrée n'est pas conforme à l'état de la partie.")
 
     def État_partie(self):
         V = []
@@ -108,9 +110,9 @@ class Quoridor:
         else:
             self.Placer_mur
         if self.Joueur != 0 or self.Joueur != 1:    
-            raise TypeError('QuoridorError')
+            raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
         if self.Partie_terminée:
-            raise TypeError('QuoridorError')
+            raise QuoridorError('La partie est déjà terminée.')
 
         def Construire_graphe(Joueurs, Murs_horizontaux, Murs_verticaux):
             Graphe = nx.DiGraph()
@@ -162,8 +164,6 @@ class Quoridor:
 
         Construire_graphe(self.pos1, self.murs_h,self.murs_v)
         return(Construire_graphe)
-        #:raises QuoridorError: si le numéro du joueur est autre que 1 ou 2.
-        #:raises QuoridorError: si la partie est déjà terminée. (Ils sont mis au niveau du jouer_coup)
 
     def Partie_terminée(self):
         if self.pos1 == ('B1'):
@@ -179,20 +179,21 @@ class Quoridor:
             self.Position = Position
             if Orientation == 'horizontal':
                 self.murs_h = self.Position
+                if Orientation != self.murs_h:
+                    raise QuoridorError("L'orientation n'est pas valide.")
             if Orientation == 'vertical':
-                self.murs_v = self.Position     
+                self.murs_v = self.Position
+                if Orientation != self.murs_v:
+                    raise QuoridorError("L'orientation n'est pas valide.")  
 
             if self.Joueur != 0 or self.Joueur != 1:
-                    raise TypeError('QuoridorError')
+                raise QuoridorError('Le numéro du joueur doit être 1 ou 2.')
             if self.Position == list(self.Murs):
-                raise TypeError('QuoridorError') 
-            #if  position invalide pour l'orientation
-                #raise TypeError('QuoridorError') 
+                raise QuoridorError('Un mur occupe déjà cette position.') 
             if  10 - int(self.murs1) == 0:
-                raise TypeError('QuoridorError')
+                raise QuoridorError('Les murs sont tous placés.')
             if  10 - int(self.murs2) == 0:
-                raise TypeError('QuoridorError') 
-        #gestion erreur
+                raise QuoridorError('Les murs sont tous placés.') 
 
         
 a= {"joueurs": [{"nom": "idul", "murs": 10, "pos": [5, 1]}, {"nom": "automate", "murs": 10, "pos": [5, 9]}], "murs": {"horizontaux": [], "verticaux": []}}
@@ -211,3 +212,12 @@ print(test)
 #la ligne ne doit pas >100 
 #gestion des erreurs
 #classe avec les erreurs (classe QuoridorError qui hérite de Exception)
+
+
+class MonErreur(Exception):
+    pass # ici on hérite du comportement pas défaut
+    
+def action(test):
+     if test:
+         raise MonErreur('erreur très spéciale')
+     return 'action normale'
