@@ -101,7 +101,7 @@ class Quoridor:
         H = []
         H += self.murs_h
         V += self.murs_v
-        F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1},
+        F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1}, 
         {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}
         return F
 
@@ -128,7 +128,7 @@ class Quoridor:
                         Graphe.add_edge((x, y), (x, y-1))
                     if y < 9:
                         Graphe.add_edge((x, y), (x, y+1))
-        
+
             for x, y in Murs_horizontaux:
                 Graphe.remove_edge((x, y-1), (x, y))
                 Graphe.remove_edge((x, y), (x, y-1))
