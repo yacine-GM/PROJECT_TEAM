@@ -20,7 +20,7 @@ def afficher_damier_ascii(idul, etat):
     buffer += f"   -----------------------------------\n"
     mat_line = []
     mat_open = []
-    # On creer une liste contenant les caractères de base pour un 
+    # On creer une liste contenant les caractères de base pour un
     # damier de jeu vide
     for i in range(0, 9):
         mat_line.append(list(f"{(9-i)} | .   .   .   .   .   .   .   .   . |\n"))
@@ -64,4 +64,3 @@ def afficher_damier_ascii(idul, etat):
 if __name__ == "__main__":
     # On appèle analyser_commande() au démarage pour lire les arguments
     ARGS = analyser_commande()
-
