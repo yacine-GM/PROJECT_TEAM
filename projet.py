@@ -3,7 +3,10 @@ import api
 import main
 
 class QuoridorError(Exception):
-        pass
+    def __init__(self, message):
+         self.message = message
+    def __str__(self):
+        return str(self.message)
 class Quoridor:
   
     
@@ -24,8 +27,8 @@ class Quoridor:
             self.Murs = Joueurs['murs']
             self.murs_h = Joueurs['murs']['horizontaux']
             self.murs_v = Joueurs['murs']['verticaux']    
-        #if Joueurs != int(Joueurs):
-         #   raise QuoridorError("Le joueur spécifié n'est pas un itérable.")
+        if Joueurs == iter(Joueurs):
+            raise QuoridorError("Le joueur spécifié n'est pas un itérable.")
         if 10 <self.murs1< 0 or 10 <self.murs2< 0 :
             raise QuoridorError('Le nombre de mur est impossible.')#si nbr mur placé est>10,ou négatif
         if self.pos1 != [5, 1] or self.pos2 != [5, 9]:
