@@ -89,7 +89,7 @@ class Quoridor:
             self.pos1 = Position
         else:
             self.pos2 = Position
-        if 2 < (self.Joueur) < 1 :
+        if 2 < (self.Joueur) < 1:
             raise QuoridorError('numéro du joueur pas valide.')
         if 9 < int(Position[0]) < 1 and 9 < int(Position[1]) < 1:
             raise QuoridorError('position pas valide.')
@@ -101,8 +101,8 @@ class Quoridor:
         H = []
         H += self.murs_h
         V += self.murs_v
-        F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1}, 
-            {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}    
+        F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1},
+        {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}
         return F
 
     def Jouer_coup(self, Joueur):
@@ -162,14 +162,14 @@ class Quoridor:
             self.pos1 = P[1]
             return self.pos1
 
-        Construire_graphe(self.pos1, self.murs_h,self.murs_v)
+        Construire_graphe(self.pos1, self.murs_h, self.murs_v)
         return Construire_graphe
 
     def Partie_terminée(self):
         if self.pos1 == ('B1'):
-            return (print(f'Le gagnant est {self.nom1}'))
+            return print(f'Le gagnant est {self.nom1}')
         if self.pos2 == ('B2'):
-            return (print(f'Le gagnant est {self.nom2}'))
+            return print(f'Le gagnant est {self.nom2}')
         else:
             return False
 

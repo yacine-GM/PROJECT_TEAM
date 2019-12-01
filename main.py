@@ -5,10 +5,7 @@ def analyser_commande():
     """Analyse les arguments de la commande d'exécution"""
     parser = argparse.ArgumentParser()
     # On joute le paramètre IDUL
-    parser.add_argument(
-        "idul", 
-        help="IDUL du joueur."
-    )
+    parser.add_argument("idul", help="IDUL du joueur.")
     # On ajoute le paramètre optionnel --lister
     parser.add_argument(
         "-l", "--lister", dest="lister", action='store_true',
@@ -55,7 +52,7 @@ def afficher_damier_ascii(idul, etat):
         mat_line[y][x-2] = '|'
         mat_open[y-1][x-2] = '|'
         mat_line[y-1][x-2] = '|'
-        
+
     for i in range(len(mat_line)):
         buffer += ''.join(mat_line[i])
         if i < len(mat_open):

@@ -11,9 +11,8 @@ def lister_parties(idul):
     if rep.status_code == 200:
         rep = rep.json()
         return rep['parties']
-    else:
-        print(f"Le GET sur {URL_BASE+'lister'} a produit le code d'erreur {rep.status_code}.")
-        raise RuntimeError
+    print(f"Le GET sur {URL_BASE+'lister'} a produit le code d'erreur {rep.status_code}.")
+    raise RuntimeError
 
 def débuter_partie(idul):
     """Demande au serveur de démarer une partie
@@ -23,9 +22,8 @@ def débuter_partie(idul):
     if rep.status_code == 200:
         rep = rep.json()
         return rep['id'], rep['état']
-    else:
-        print(f"Le GET sur {URL_BASE+'lister'} a produit le code d'erreur {rep.status_code}.")
-        raise RuntimeError
+    print(f"Le GET sur {URL_BASE+'lister'} a produit le code d'erreur {rep.status_code}.")
+    raise RuntimeError
 
 def jouer_coup(id_partie, type_coup, position):
     """Effectue le coup indiqué par l'utilisateur
