@@ -9,11 +9,11 @@ class QuoridorError(Exception):
 class Quoridor:
 
 
-    def __init__(self, joueurs, Murs = None):
+    def __init__(self, joueurs, murs = None):
         if type(joueurs) is str:
             self.nom1 = joueurs[0]
             self.nom2 = joueurs[1]
-            for i, j in enumerate(joueurs):
+            for i in enumerate(joueurs):
                 if i > 1:#si l'itérable de joueurs en contient plus de deux
                     raise QuoridorError('Le jeu accepte pas plus de 2 joueurs.')
         if type(joueurs) is dict:
@@ -29,13 +29,13 @@ class Quoridor:
         if joueurs == iter(joueurs):
             raise QuoridorError("Le joueur spécifié n'est pas un itérable.")
         if 10 < self.murs1 < 0 or 10 < self.murs2 < 0:
-            raise QuoridorError('Le nombre de mur est impossible.')#si nbr mur placé est>10,ou négatif
+            raise QuoridorError('Le nombre de mur est impossible.')
         if self.pos1 != [5, 1] or self.pos2 != [5, 9]:
-            raise QuoridorError("La position d'un joueur n'est pas valide.")#si la pos d'un joueur est invalide
+            raise QuoridorError("La position d'un joueur n'est pas valide.")
         if (10- int(self.murs1) + 10 - int(self.murs2)) > 20:
-            raise QuoridorError('Le nombre de mur est impossible.')#si le total des murs placés et plaçables n'est pas égal à 20
+            raise QuoridorError('Le nombre de mur est impossible.')
         if type(self.murs) is not dict:
-            raise QuoridorError("La variable mur n'est pas un dictionnaire.")#si murs n'est pas un dictionnaire lorsque présent
+            raise QuoridorError("La variable mur n'est pas un dictionnaire.")
         #if self.Murs position impossible:
             #raise QuoridorError("La position du mur donné n'est pas valide")
 
@@ -104,7 +104,7 @@ class Quoridor:
         f = {'joueurs': [
             {'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1},
             {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}],
-            'murs': {'horizontaux': h, 'verticaux': v}}
+             'murs': {'horizontaux': h, 'verticaux': v}}
         return f
 
     def jouer_coup(self, joueur):
@@ -130,7 +130,6 @@ class Quoridor:
                         graphe.add_edge((x, y), (x, y-1))
                     if y < 9:
                         graphe.add_edge((x, y), (x, y+1))
-        
             for x, y in murs_horizontaux:
                 graphe.remove_edge((x, y-1), (x, y))
                 graphe.remove_edge((x, y), (x, y-1))
@@ -144,7 +143,7 @@ class Quoridor:
 
             for joueur in map(tuple, joueurs):
 
-                for prédécesseur in list(graphe.Predecessors(joueur)):
+                for prédécesseur in list(graphe.predecessors(joueur)):
                     graphe.remove_edge(prédécesseur, joueur)
 
                 successeur = (2*joueur[0]-prédécesseur[0], 2*joueur[1]-prédécesseur[1])
@@ -153,7 +152,7 @@ class Quoridor:
                 graphe.add_edge(prédécesseur, successeur)
 
             else:
-                for successeur in list(graphe.Successors(joueur)):
+                for successeur in list(graphe.successors(joueur)):
                     if prédécesseur != successeur and successeur not in joueurs:
                         graphe.add_edge(prédécesseur, successeur)
 
@@ -173,7 +172,7 @@ class Quoridor:
         if self.pos2 == ('B2'):
             return print(f'Le gagnant est {self.nom2}')
         else:
-            return False
+            False
 
     def placer_mur(self, joueur, position, orientation):
         self.joueur = int(joueur)
