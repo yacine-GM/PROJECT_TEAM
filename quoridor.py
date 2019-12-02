@@ -25,7 +25,7 @@ class Quoridor:
             self.murs2 = joueurs['joueurs'][1]['murs']
             self.murs = joueurs['murs']
             self.murs_h = joueurs['murs']['horizontaux']
-            self.murs_v = joueurs['murs']['verticaux']    
+            self.murs_v = joueurs['murs']['verticaux']
         if joueurs == iter(joueurs):
             raise QuoridorError("Le joueur spécifié n'est pas un itérable.")
         if 10 < self.murs1 < 0 or 10 < self.murs2 < 0:
@@ -101,7 +101,10 @@ class Quoridor:
         h = []
         h += self.murs_h
         v += self.murs_v
-        f = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1}, {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': h, 'verticaux': v}}
+        f = {'joueurs': [
+            {'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1},
+            {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}],
+            'murs': {'horizontaux': h, 'verticaux': v}}
         return f
 
     def jouer_coup(self, joueur):
