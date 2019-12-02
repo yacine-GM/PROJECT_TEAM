@@ -172,11 +172,11 @@ class Quoridor:
         else:
             return False
 
-    def Placer_mur(self, Joueur, Position, Orientation):
+    def Placer_mur(self, Joueur, Position, ORIENTATION):
         self.Joueur = int(Joueur)
         if self.Joueur == 1:
             self.Position = Position
-            if Orientation == 'horizontal':
+            if ORIENTATION == 'horizontal':
                 self.murs_h = self.Position
                 if Orientation != self.murs_h:
                     raise QuoridorError("L'orientation n'est pas valide.")
