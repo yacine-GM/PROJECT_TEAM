@@ -82,16 +82,16 @@ class Quoridor:
         buffer += "  | 1   2   3   4   5   6   7   8   9\n"
         return buffer
 
-    def déplacer_jeton(self, joueur, Position):
+    def déplacer_jeton(self, joueur, position):
         self.joueur = int(joueur)
-        self.pos1 = Position
+        self.pos1 = position
         if self.joueur == 1:
-            self.pos1 = Position
+            self.pos1 = position
         else:
-            self.pos2 = Position
+            self.pos2 = position
         if 2 < (self.joueur) < 1:
             raise QuoridorError('numéro du joueur pas valide.')
-        if 9 < int(Position[0]) < 1 and 9 < int(Position[1]) < 1:
+        if 9 < int(position[0]) < 1 and 9 < int(position[1]) < 1:
             raise QuoridorError('position pas valide.')
         if self.position != self.pos1:
             raise QuoridorError("La positione entrée n'est pas conforme à l'état de la partie.")
