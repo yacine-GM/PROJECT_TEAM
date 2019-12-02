@@ -9,24 +9,24 @@ class QuoridorError(Exception):
 class Quoridor:
 
 
-    def __init__(self, Joueurs, Murs = None):
-        if type(Joueurs) is str:
-            self.nom1 = Joueurs[0]
-            self.nom2 = Joueurs[1]
-            for i, j in enumerate(Joueurs):
+    def __init__(self, joueurs, Murs = None):
+        if type(joueurs) is str:
+            self.nom1 = joueurs[0]
+            self.nom2 = joueurs[1]
+            for i, j in enumerate(joueurs):
                 if i > 1:#si l'itérable de joueurs en contient plus de deux
                     raise QuoridorError('Le jeu accepte pas plus de 2 joueurs.')
-        if type(Joueurs) is dict:
-            self.id1 = Joueurs['joueurs'][0]['nom']
-            self.pos1 = Joueurs['joueurs'][0]['pos']
-            self.murs1 = Joueurs['joueurs'][0]['murs']
-            self.id2 = Joueurs['joueurs'][1]['nom']
-            self.pos2 = Joueurs['joueurs'][1]['pos']
-            self.murs2 = Joueurs['joueurs'][1]['murs']
-            self.Murs = Joueurs['murs']
-            self.murs_h = Joueurs['murs']['horizontaux']
-            self.murs_v = Joueurs['murs']['verticaux']    
-        if Joueurs == iter(Joueurs):
+        if type(joueurs) is dict:
+            self.id1 = joueurs['joueurs'][0]['nom']
+            self.pos1 = joueurs['joueurs'][0]['pos']
+            self.murs1 = joueurs['joueurs'][0]['murs']
+            self.id2 = joueurs['joueurs'][1]['nom']
+            self.pos2 = joueurs['joueurs'][1]['pos']
+            self.murs2 = joueurs['joueurs'][1]['murs']
+            self.murs = joueurs['murs']
+            self.murs_h = joueurs['murs']['horizontaux']
+            self.murs_v = joueurs['murs']['verticaux']    
+        if joueurs == iter(joueurs):
             raise QuoridorError("Le joueur spécifié n'est pas un itérable.")
         if 10 < self.murs1 < 0 or 10 < self.murs2 < 0:
             raise QuoridorError('Le nombre de mur est impossible.')#si nbr mur placé est>10,ou négatif
@@ -34,7 +34,7 @@ class Quoridor:
             raise QuoridorError("La position d'un joueur n'est pas valide.")#si la pos d'un joueur est invalide
         if (10- int(self.murs1) + 10 - int(self.murs2)) > 20:
             raise QuoridorError('Le nombre de mur est impossible.')#si le total des murs placés et plaçables n'est pas égal à 20
-        if type(self.Murs) is not dict:
+        if type(self.murs) is not dict:
             raise QuoridorError("La variable mur n'est pas un dictionnaire.")#si murs n'est pas un dictionnaire lorsque présent
         #if self.Murs position impossible:
             #raise QuoridorError("La position du mur donné n'est pas valide")
@@ -97,12 +97,12 @@ class Quoridor:
             raise QuoridorError("La positione entrée n'est pas conforme à l'état de la partie.")
 
     def état_partie(self):
-        V = []
-        H = []
-        H += self.murs_h
-        V += self.murs_v
-        F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1}, {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}
-        return F
+        v = []
+        h = []
+        h += self.murs_h
+        v += self.murs_v
+        f = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1}, {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': h, 'verticaux': v}}
+        return f
 
     def jouer_coup(self, joueur):
         self.joueur = joueur
@@ -187,7 +187,7 @@ class Quoridor:
 
             if self.Joueur != 0 or self.Joueur != 1:
                 raise QuoridorError('Le numéro du joueur doit être 1 ou 2.')
-            if self.position == list(self.Murs):
+            if self.position == list(self.murs):
                 raise QuoridorError('Un mur occupe déjà cette position.')
             if  10 - int(self.murs1) == 0:
                 raise QuoridorError('Les murs sont tous placés.')
