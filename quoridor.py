@@ -82,14 +82,14 @@ class Quoridor:
         buffer += "  | 1   2   3   4   5   6   7   8   9\n"
         return buffer
 
-    def déplacer_jeton(self, Joueur, Position):
-        self.Joueur = int(Joueur)
+    def déplacer_jeton(self, joueur, Position):
+        self.joueur = int(joueur)
         self.pos1 = Position
-        if self.Joueur == 1:
+        if self.joueur == 1:
             self.pos1 = Position
         else:
             self.pos2 = Position
-        if 2 < (self.Joueur) < 1:
+        if 2 < (self.joueur) < 1:
             raise QuoridorError('numéro du joueur pas valide.')
         if 9 < int(Position[0]) < 1 and 9 < int(Position[1]) < 1:
             raise QuoridorError('position pas valide.')
@@ -110,7 +110,7 @@ class Quoridor:
             self.déplacer_jeton
         else:
             self.placer_mur
-        if self.Joueur != 0 or self.Joueur != 1:
+        if self.joueur != 0 or self.joueur != 1:
             raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
         if self.partie_terminée:
             raise QuoridorError('La partie est déjà terminée.')
@@ -185,7 +185,7 @@ class Quoridor:
                 if orientation != self.murs_v:
                     raise QuoridorError("L'orientation n'est pas valide.")
 
-            if self.Joueur != 0 or self.Joueur != 1:
+            if self.joueur != 0 or self.joueur != 1:
                 raise QuoridorError('Le numéro du joueur doit être 1 ou 2.')
             if self.position == list(self.murs):
                 raise QuoridorError('Un mur occupe déjà cette position.')
