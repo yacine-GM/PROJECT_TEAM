@@ -104,8 +104,8 @@ class Quoridor:
         F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1}, {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}
         return F
 
-    def jouer_coup(self, Joueur):
-
+    def jouer_coup(self, joueur):
+        self.joueur = joueur
         if self.pos1 < self.pos2:
             self.déplacer_jeton
         else:
@@ -115,54 +115,54 @@ class Quoridor:
         if self.partie_terminée:
             raise QuoridorError('La partie est déjà terminée.')
 
-        def Construire_graphe(Joueurs, Murs_horizontaux, Murs_verticaux):
-            Graphe = nx.DiGraph()
+        def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
+            graphe = nx.DiGraph()
             for x in range(1, 10):
                 for y in range(1, 10):
                     if x > 1:
-                        Graphe.add_edge((x, y), (x-1, y))
+                        graphe.add_edge((x, y), (x-1, y))
                     if x < 9:
-                        Graphe.add_edge((x, y), (x+1, y))
+                        graphe.add_edge((x, y), (x+1, y))
                     if y > 1:
-                        Graphe.add_edge((x, y), (x, y-1))
+                        graphe.add_edge((x, y), (x, y-1))
                     if y < 9:
-                        Graphe.add_edge((x, y), (x, y+1))
+                        graphe.add_edge((x, y), (x, y+1))
         
-            for x, y in Murs_horizontaux:
-                Graphe.remove_edge((x, y-1), (x, y))
-                Graphe.remove_edge((x, y), (x, y-1))
-                Graphe.remove_edge((x+1, y-1), (x+1, y))
-                Graphe.remove_edge((x+1, y), (x+1, y-1))
-            for x, y in Murs_verticaux:
-                Graphe.remove_edge((x-1, y), (x, y))
-                Graphe.remove_edge((x, y), (x-1, y))
-                Graphe.remove_edge((x-1, y+1), (x, y+1))
-                Graphe.remove_edge((x, y+1), (x-1, y+1))
+            for x, y in murs_horizontaux:
+                graphe.remove_edge((x, y-1), (x, y))
+                graphe.remove_edge((x, y), (x, y-1))
+                graphe.remove_edge((x+1, y-1), (x+1, y))
+                graphe.remove_edge((x+1, y), (x+1, y-1))
+            for x, y in murs_verticaux:
+                graphe.remove_edge((x-1, y), (x, y))
+                graphe.remove_edge((x, y), (x-1, y))
+                graphe.remove_edge((x-1, y+1), (x, y+1))
+                graphe.remove_edge((x, y+1), (x-1, y+1))
 
-            for Joueur in map(tuple, Joueurs):
+            for joueur in map(tuple, joueurs):
 
-                for Prédécesseur in list(Graphe.Predecessors(Joueur)):
-                    Graphe.remove_edge(Prédécesseur, Joueur)
+                for prédécesseur in list(graphe.Predecessors(joueur)):
+                    graphe.remove_edge(prédécesseur, joueur)
 
-                Successeur = (2*Joueur[0]-Prédécesseur[0], 2*Joueur[1]-Prédécesseur[1])
+                successeur = (2*joueur[0]-prédécesseur[0], 2*joueur[1]-prédécesseur[1])
 
-            if Successeur in Graphe.Successors(Joueur) and Successeur not in Joueurs:
-                Graphe.add_edge(Prédécesseur, Successeur)
+            if successeur in graphe.successors(joueur) and successeur not in joueurs:
+                graphe.add_edge(prédécesseur, successeur)
 
             else:
-                for Successeur in list(Graphe.Successors(Joueur)):
-                    if Prédécesseur != Successeur and Successeur not in Joueurs:
-                        Graphe.add_edge(Prédécesseur, Successeur)
+                for successeur in list(graphe.Successors(joueur)):
+                    if prédécesseur != successeur and successeur not in joueurs:
+                        graphe.add_edge(prédécesseur, successeur)
 
             for x in range(1, 10):
-                Graphe.add_edge((x, 9), 'B1')
-                Graphe.add_edge((x, 1), 'B2')
-            P = nx.shortest_path(Graphe, self.pos1, 'B1')
-            self.pos1 = P[1]
+                graphe.add_edge((x, 9), 'B1')
+                graphe.add_edge((x, 1), 'B2')
+            p = nx.shortest_path(graphe, self.pos1, 'B1')
+            self.pos1 = p[1]
             return self.pos1
 
-        Construire_graphe(self.pos1, self.murs_h, self.murs_v)
-        return Construire_graphe
+        construire_graphe(self.pos1, self.murs_h, self.murs_v)
+        return construire_graphe
 
     def partie_terminée(self):
         if self.pos1 == ('B1'):
