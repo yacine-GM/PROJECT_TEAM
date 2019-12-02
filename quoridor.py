@@ -109,7 +109,7 @@ class Quoridor:
         if self.pos1 < self.pos2:
             self.Déplacer_jeton
         else:
-            self.Placer_mur
+            self.placer_mur
         if self.Joueur != 0 or self.Joueur != 1:
             raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
         if self.Partie_terminée:
