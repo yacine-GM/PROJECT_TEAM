@@ -82,7 +82,7 @@ class Quoridor:
         buffer += "  | 1   2   3   4   5   6   7   8   9\n"
         return buffer
 
-    def Déplacer_jeton(self, Joueur, Position):
+    def déplacer_jeton(self, Joueur, Position):
         self.Joueur = int(Joueur)
         self.pos1 = Position
         if self.Joueur == 1:
@@ -93,10 +93,10 @@ class Quoridor:
             raise QuoridorError('numéro du joueur pas valide.')
         if 9 < int(Position[0]) < 1 and 9 < int(Position[1]) < 1:
             raise QuoridorError('position pas valide.')
-        if self.Position != self.pos1:
+        if self.position != self.pos1:
             raise QuoridorError("La positione entrée n'est pas conforme à l'état de la partie.")
 
-    def État_partie(self):
+    def état_partie(self):
         V = []
         H = []
         H += self.murs_h
@@ -104,15 +104,15 @@ class Quoridor:
         F = {'joueurs': [{'nom': self.nom1, 'murs': 10 - int(self.murs1), 'pos':self.pos1}, {'nom': self.nom2, 'murs': 10 - int(self.murs2), 'pos': self.pos2}], 'murs': {'horizontaux': H, 'verticaux': V}}
         return F
 
-    def Jouer_coup(self, Joueur):
+    def jouer_coup(self, Joueur):
 
         if self.pos1 < self.pos2:
-            self.Déplacer_jeton
+            self.déplacer_jeton
         else:
             self.placer_mur
         if self.Joueur != 0 or self.Joueur != 1:
             raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
-        if self.Partie_terminée:
+        if self.partie_terminée:
             raise QuoridorError('La partie est déjà terminée.')
 
         def Construire_graphe(Joueurs, Murs_horizontaux, Murs_verticaux):
@@ -164,7 +164,7 @@ class Quoridor:
         Construire_graphe(self.pos1, self.murs_h, self.murs_v)
         return Construire_graphe
 
-    def Partie_terminée(self):
+    def partie_terminée(self):
         if self.pos1 == ('B1'):
             return print(f'Le gagnant est {self.nom1}')
         if self.pos2 == ('B2'):
@@ -172,22 +172,22 @@ class Quoridor:
         else:
             return False
 
-    def placer_mur(self, Joueur, Position, ORIENTATION):
-        self.Joueur = int(Joueur)
-        if self.Joueur == 1:
-            self.Position = Position
-            if ORIENTATION == 'horizontal':
-                self.murs_h = self.Position
-                if ORIENTATION != self.murs_h:
+    def placer_mur(self, joueur, position, orientation):
+        self.joueur = int(joueur)
+        if self.joueur == 1:
+            self.position = position
+            if orientation == 'horizontal':
+                self.murs_h = self.position
+                if orientation != self.murs_h:
                     raise QuoridorError("L'orientation n'est pas valide.")
-            if ORIENTATION == 'vertical':
-                self.murs_v = self.Position
-                if ORIENTATION != self.murs_v:
+            if orientation == 'vertical':
+                self.murs_v = self.position
+                if orientation != self.murs_v:
                     raise QuoridorError("L'orientation n'est pas valide.")
 
             if self.Joueur != 0 or self.Joueur != 1:
                 raise QuoridorError('Le numéro du joueur doit être 1 ou 2.')
-            if self.Position == list(self.Murs):
+            if self.position == list(self.Murs):
                 raise QuoridorError('Un mur occupe déjà cette position.')
             if  10 - int(self.murs1) == 0:
                 raise QuoridorError('Les murs sont tous placés.')
