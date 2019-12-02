@@ -175,19 +175,19 @@ class Quoridor:
     def Placer_mur(self, Joueur, Position, Orientation):
         self.Joueur = int(Joueur)
         if self.Joueur == 1:
-            self.POSITION = Position
+            self.Position = Position
             if Orientation == 'horizontal':
-                self.murs_h = self.POSITION
+                self.murs_h = self.Position
                 if Orientation != self.murs_h:
                     raise QuoridorError("L'orientation n'est pas valide.")
             if Orientation == 'vertical':
-                self.murs_v = self.POSITION
+                self.murs_v = self.Position
                 if Orientation != self.murs_v:
                     raise QuoridorError("L'orientation n'est pas valide.")
 
             if self.Joueur != 0 or self.Joueur != 1:
                 raise QuoridorError('Le numéro du joueur doit être 1 ou 2.')
-            if self.POSITION == list(self.Murs):
+            if self.Position == list(self.Murs):
                 raise QuoridorError('Un mur occupe déjà cette position.')
             if  10 - int(self.murs1) == 0:
                 raise QuoridorError('Les murs sont tous placés.')
