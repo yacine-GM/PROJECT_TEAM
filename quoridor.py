@@ -9,7 +9,7 @@ class QuoridorError(Exception):
 class Quoridor:
 
 
-    def __init__(self, joueurs, murs = None):
+    def __init__(self, joueurs):
         if type(joueurs) is str:
             self.nom1 = joueurs[0]
             self.nom2 = joueurs[1]
@@ -171,8 +171,6 @@ class Quoridor:
             return print(f'Le gagnant est {self.nom1}')
         if self.pos2 == ('B2'):
             return print(f'Le gagnant est {self.nom2}')
-        else:
-            False
 
     def placer_mur(self, joueur, position, orientation):
         self.joueur = int(joueur)
