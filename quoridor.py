@@ -194,27 +194,3 @@ class Quoridor:
                 raise QuoridorError('Les murs sont tous placés.')
             if  10 - int(self.murs2) == 0:
                 raise QuoridorError('Les murs sont tous placés.')
-"""
-test = nx.shortest_path(graphe, (5, 1), 'B1')
-print(test)
-
-#def __seterpos__(self, pos1, pos2):
-    #self.pos1= 
-
-#changer toutes les noms de variables en majuscules
-#la ligne ne doit pas >100 
-#gestion des erreurs
-#classe avec les erreurs (classe QuoridorError qui hérite de Exception)
-
-
-class MonErreur(Exception):
-    pass # ici on hérite du comportement pas défaut
-    
-def action(test):
-     if test:
-         raise MonErreur('erreur très spéciale')
-     return 'action normale'
-     a= {"joueurs": [{"nom": "idul", "murs": 10, "pos": [5, 1]}, {"nom": "automate", "murs": 10, "pos": [5, 9]}], "murs": {"horizontaux": [], "verticaux": []}}
-b = Quoridor(a)
-print(b)
-"""
