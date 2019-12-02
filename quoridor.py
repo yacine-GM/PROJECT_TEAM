@@ -172,7 +172,7 @@ class Quoridor:
         else:
             return False
 
-    def Placer_mur(self, Joueur, Position, ORIENTATION):
+    def placer_mur(self, Joueur, Position, ORIENTATION):
         self.Joueur = int(Joueur)
         if self.Joueur == 1:
             self.Position = Position
