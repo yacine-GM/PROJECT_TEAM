@@ -178,11 +178,11 @@ class Quoridor:
             self.Position = Position
             if ORIENTATION == 'horizontal':
                 self.murs_h = self.Position
-                if Orientation != self.murs_h:
+                if ORIENTATION != self.murs_h:
                     raise QuoridorError("L'orientation n'est pas valide.")
-            if Orientation == 'vertical':
+            if ORIENTATION == 'vertical':
                 self.murs_v = self.Position
-                if Orientation != self.murs_v:
+                if ORIENTATION != self.murs_v:
                     raise QuoridorError("L'orientation n'est pas valide.")
 
             if self.Joueur != 0 or self.Joueur != 1:
