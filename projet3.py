@@ -1,3 +1,6 @@
+import argparse
+
+
 def analyser_commande():
     parser = argparse.ArgumentParser(description='Jeu Quoridor - phase 1.')
     parser.add_argument('--lister', help='Lister les identifiants de vos 20 dernières parties.', 
@@ -13,8 +16,7 @@ def analyser_commande():
 
 print(analyser_commande().idul)
 if analyser_commande().auto:
-    jouer_coup('SSSAD2', 'D', (4, 2))
-
+    print('auto')
 if analyser_commande().manugraph:
     print('manuel avec affichage graphique')
 
