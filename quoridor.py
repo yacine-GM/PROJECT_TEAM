@@ -1,6 +1,7 @@
 import networkx as nx
 
 
+
 class QuoridorError(Exception):
     def __init__(self, message):
         self.message = message
