@@ -1,6 +1,15 @@
 import argparse
 from turtle import *
+import Quoridor
 
+
+class QuoridorX(Quoridor):
+
+    def afficher_graphe():
+        super().construire_graphe()
+        return (write(graphe))
+        done()
+        
 up()
 buffer = "\nLégende: 1=self.nom1, 2= self.nom2\n" #À CHANGER!!!!    
 buffer += f"   -----------------------------------\n"
@@ -48,5 +57,21 @@ else:
     print('manuel')
 
 
-
-
+'''
+#Mode auto
+def jouer_coup(self, joueur):
+        self.joueur = joueur
+        if nx.shortest_path(graphe, self.pos1, 'B1') < nx.shortest_path(graphe, self.pos2, 'B2'):
+            self.déplacer_jeton(position = p[1])
+        else:
+            if (self.pos2[0], self.pos2[1]-1) != list(self.murs):
+                return self.placer_mur(joueur = 1, position = (self.pos2[0], self.pos2[1]-1), orientation = 'horizontal')
+            elif (self.pos2[0], self.pos2[1]-1) == list(self.murs) and (self.pos2[0]-1, self.pos[1]) != list(self.murs):
+                return self.placer_mur(joueur = 1, position = (self.pos2[0]-1, self.pos2[1]), orientation = 'vertical')
+            elif (self.pos2[0], self.pos2[1]-) == list(self.murs) and (self.pos2[0]-1, self.pos2[1]) == list(self.murs) and (self.pos2[0]+1, self.pos2[1]) != list(self.murs):
+                return self.placer_mur(joueur = 1, position = (self.pos2[0]+1, self.pos2[1]), orientation = 'vertical')
+        if self.joueur != 0 or self.joueur != 1:
+            raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
+        if self.partie_terminée:
+            raise QuoridorError('La partie est déjà terminée.')
+'''

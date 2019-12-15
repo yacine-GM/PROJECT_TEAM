@@ -193,3 +193,4 @@ class Quoridor:
                 raise QuoridorError('Les murs sont tous placés.')
             if  10 - int(self.murs2) == 0:
                 raise QuoridorError('Les murs sont tous placés.')
+
