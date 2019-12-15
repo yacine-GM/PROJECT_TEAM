@@ -12,13 +12,13 @@ def analyser_commande():
         help="Lister les identifiants de vos 20 dernières parties."
     )
     parser.add_argument('--lister', help='Lister les identifiants de vos 20 dernières parties.', 
-    action = 'store_true')
+    action='store_true')
     parser.add_argument('-a', '--auto', help='Lister les identifiants de vos 20 dernières parties.', 
-    action = 'store_true')
+    action='store_true')
     parser.add_argument('-x', '--manugraph', help=' pour jouer en mode manuel contre le serveur avec le nom idul, mais avec un affichage dans une fenêtre graphique.', 
-    action = 'store_true')
+    action='store_true')
     parser.add_argument('-ax', '--autoautograph', help='pour jouer en mode automatique contre le serveur avec le nom idul, mais avec un affichage dans une fenêtre graphique.', 
-    action = 'store_true')
+    action='store_true')
     parser.add_argument('idul', help=' IDUL du joueur ')
     return parser.parse_args()
 
