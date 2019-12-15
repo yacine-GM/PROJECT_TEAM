@@ -1,6 +1,4 @@
 import argparse
-from turtle import *
-import quoridor
 
 
 class QuoridorX(Quoridor):
