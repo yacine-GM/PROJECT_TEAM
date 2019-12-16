@@ -13,10 +13,14 @@ def analyser_commande():
     parser.add_argument(
         "-l", "--lister", dest="lister", action='store_true',
         help="Lister les identifiants de vos 20 dernières parties.")
-    parser.add_argument('--lister', help='Lister les identifiants de vos 20 dernières parties.', action='store_true')
-    parser.add_argument('-a', '--auto', help='Activer le mode automatique.', action='store_true')
-    parser.add_argument('-x', '--manugraph', help=' Activer le mode graphique.', action='store_true')
-    parser.add_argument('-ax', '--autoautograph', help=' Activer le mode automatique-graphique.', action='store_true')
+    parser.add_argument('--lister', action='store_true',
+                        help='Lister les identifiants de vos 20 dernières parties.')
+    parser.add_argument('-a', '--auto', action='store_true',
+                        help='Activer le mode automatique.')
+    parser.add_argument('-x', '--manugraph', action='store_true',
+                        help=' Activer le mode graphique.')
+    parser.add_argument('-ax', '--autoautograph', action='store_true',
+                        help=' Activer le mode automatique-graphique.')
     parser.add_argument('idul', help=' IDUL du joueur ')
     return parser.parse_args()
 
