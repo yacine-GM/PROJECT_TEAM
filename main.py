@@ -72,27 +72,35 @@ if __name__ == "__main__":
     # On appèle analyser_commande() au démarage pour lire les arguments
     ARGS = analyser_commande()
 
-def part_autograph(idul):
+def part_graph(idul):
     "jouer une partie automatique en mode graphique"
     try:
-        deb = api.débuter_partie(idul)
+        v = api.débuter_partie(idul)
     except RuntimeError as err:
         print(err)
     #initialiser unc classe Quoridorx et l'afficher
     etatquodx = x.QuoridorX(v[1]['joueurs'], v[1]['murs'])
     etatquodx.afficher_graphe()
-    cte = deb[0]
-    etat = deb[1]
+    cte = v[0]
+    etat = v[1]
     while True:
         try:
             pos = etat['joueurs'][0]['pos']
-            murs_h = len(etat['murs']['horizontaux'])
+            mh = len(etat['murs']['horizontaux'])
             etatquodx.jouer_coup(1)
             etatquodx.afficher_graphe()
             if pos == etatquodx.état_partie()['joueurs'][0]['pos']:
-                if murs_h == len(etatquodx.état_partie()['murs']['horizontaux']):
+                if mh == len(etatquodx.état_partie()['murs']['horizontaux']):
                     etat = api.jouer_coup(cte, 'MV', etatquodx.état_partie()['murs']['verticaux'][-1])
                 else:
                     etat = api.jouer_coup(cte, 'MH', etatquodx.état_partie()['murs']['horizontaux'][-1])
             else:
                 etat = api.jouer_coup(cte, 'D', etatquodx.état_partie()['joueurs'][0]['pos'])
+        except StopIteration as err:
+            print(err)
+            break
+        except Q.QuoridorError as err:
+            print(err)
+            break
+        except RuntimeError as err:
+            print(err)
