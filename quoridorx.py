@@ -8,14 +8,14 @@ class QuoridorX(Quoridor):
     def __str__(self):
         up()
         buffer = "\nLégende: 1=self.nom1, 2= self.nom2\n" #À CHANGER!!!!
-        buffer += f"   -----------------------------------\n"
+        buffer += f"   ----------------------------\n"
         mat_line = []
         mat_open = []
 
         for i in range(0, 9):
-            mat_line.append(list(f"{(9-i)} | .   .   .   .   .   .   .   .   . |\n"))
+            mat_line.append(list(f"{(9-i)} | .   .   .   .   .   .   .   .   .  |\n"))
         for i in range(0, 8):
-            mat_open.append(list("  |                                   |\n"))
+            mat_open.append(list("   |                                    |\n"))
         pos_joueur = self.pos1
         pos_automate = self.pos2
         mat_line[9-pos_joueur[1]][4 + (pos_joueur[0] - 1)*4] = "1"
@@ -44,8 +44,8 @@ class QuoridorX(Quoridor):
             buffer += ''.join(mat_line[i])
             if i < len(mat_open):
                 buffer += ''.join(mat_open[i])
-        buffer += "--|-----------------------------------\n"
-        buffer += "  | 1   2   3   4   5   6   7   8   9\n"
+        buffer += "--|---------------------------\n"
+        buffer += "   | 1  2  3  4  5  6  7  8  9\n"
         write(buffer)
         done()
         return buffer
