@@ -19,7 +19,7 @@ class Quoridor:
                     raise QuoridorError('Le jeu accepte pas plus de 2 joueurs.')
         if type(joueurs) is dict:
             self.id1 = joueurs['joueurs'][0]['nom']
-            self.pos1 = joueurs['joueurs'][0]['pos']
+            self.Pos1 = joueurs['joueurs'][0]['pos']
             self.murs1 = joueurs['joueurs'][0]['murs']
             self.id2 = joueurs['joueurs'][1]['nom']
             self.pos2 = joueurs['joueurs'][1]['pos']
