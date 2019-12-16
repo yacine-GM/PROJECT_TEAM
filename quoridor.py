@@ -111,9 +111,9 @@ class Quoridor:
     def jouer_coup(self, joueur):
         self.joueur = joueur
         if self.pos1 < self.pos2:
-            self.déplacer_jeton
+            return (déplacer_jeton())
         else:
-            self.placer_mur
+            return (placer_mur())
         if self.joueur != 0 or self.joueur != 1:
             raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
         if self.partie_terminée:
