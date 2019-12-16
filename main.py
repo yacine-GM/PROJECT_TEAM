@@ -96,32 +96,3 @@ def part_autograph(idul):
                     etat = api.jouer_coup(cte, 'MH', etatquodx.état_partie()['murs']['horizontaux'][-1])
             else:
                 etat = api.jouer_coup(cte, 'D', etatquodx.état_partie()['joueurs'][0]['pos'])
-
-def partie_automatique(idul):
-    "jouer une partie automatique"
-    try:
-        debauto = api.débuter_partie(idul)
-    except RuntimeError as err:
-        print(err)
-    else:
-        a = Q.Quoridor(debauto[1]['joueurs'], debauto[1]['murs'])
-        print(z)
-        idul = debauto[0]
-        auto = debauto[1]
-        while True:
-            try:
-                a = Q.Quoridor(auto['joueurs'], auto['murs'])
-                position = auto['joueurs'][0]['pos']
-                murs_h = len(auto['murs']['horizontaux'])
-                a.jouer_coup(1)
-                jeu = a.état_partie()
-                if position == jeu['joueurs'][0]['pos']:
-                    if murs_h == len(jeu['murs']['horizontaux']):
-                        debauto = api.jouer_coup(idul, 'MV', jeu['murs']['verticaux'][-1])
-                    else:
-                        debauto = api.jouer_coup(idul, 'MH', jeu['murs']['horizontaux'][-1])
-                else:
-                    debauto = api.jouer_coup(idul, 'D', jeu['joueurs'][0]['pos'])
-
-                a = Q.Quoridor(debauto['joueurs'], debauto['murs'])
-                print(a)
