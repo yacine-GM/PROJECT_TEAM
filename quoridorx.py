@@ -20,7 +20,10 @@ class QuoridorX(Quoridor):
     def placer_mur(self, joueur, position, orientation):
         super().placer_mur(self, joueur, position, orientation)
     def afficher_graphe(self):
-        pass
+        up()
+        write(buffer)
+        done()
+        return afficher_graphe
 
 
 
