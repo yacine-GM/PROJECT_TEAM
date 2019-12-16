@@ -75,32 +75,53 @@ if __name__ == "__main__":
 def part_autograph(idul):
     "jouer une partie automatique en mode graphique"
     try:
-        v = api.débuter_partie(idul)
+        deb = api.débuter_partie(idul)
     except RuntimeError as err:
         print(err)
     #initialiser unc classe Quoridorx et l'afficher
     etatquodx = x.QuoridorX(v[1]['joueurs'], v[1]['murs'])
     etatquodx.afficher_graphe()
-    cte = v[0]
-    etat = v[1]
+    cte = deb[0]
+    etat = deb[1]
     while True:
         try:
             pos = etat['joueurs'][0]['pos']
-            mh = len(etat['murs']['horizontaux'])
+            murs_h = len(etat['murs']['horizontaux'])
             etatquodx.jouer_coup(1)
             etatquodx.afficher_graphe()
             if pos == etatquodx.état_partie()['joueurs'][0]['pos']:
-                if mh == len(etatquodx.état_partie()['murs']['horizontaux']):
+                if murs_h == len(etatquodx.état_partie()['murs']['horizontaux']):
                     etat = api.jouer_coup(cte, 'MV', etatquodx.état_partie()['murs']['verticaux'][-1])
                 else:
                     etat = api.jouer_coup(cte, 'MH', etatquodx.état_partie()['murs']['horizontaux'][-1])
             else:
                 etat = api.jouer_coup(cte, 'D', etatquodx.état_partie()['joueurs'][0]['pos'])
-        except StopIteration as err:
-            print(err)
-            break
-        except Q.QuoridorError as err:
-            print(err)
-            break
-        except RuntimeError as err:
-            print(err)
+
+def partie_automatique(idul):
+    "jouer une partie automatique"
+    try:
+        debauto = api.débuter_partie(idul)
+    except RuntimeError as err:
+        print(err)
+    else:
+        a = Q.Quoridor(debauto[1]['joueurs'], debauto[1]['murs'])
+        print(z)
+        idul = debauto[0]
+        auto = debauto[1]
+        while True:
+            try:
+                a = Q.Quoridor(auto['joueurs'], auto['murs'])
+                position = auto['joueurs'][0]['pos']
+                murs_h = len(auto['murs']['horizontaux'])
+                a.jouer_coup(1)
+                jeu = a.état_partie()
+                if position == jeu['joueurs'][0]['pos']:
+                    if murs_h == len(jeu['murs']['horizontaux']):
+                        debauto = api.jouer_coup(idul, 'MV', jeu['murs']['verticaux'][-1])
+                    else:
+                        debauto = api.jouer_coup(idul, 'MH', jeu['murs']['horizontaux'][-1])
+                else:
+                    debauto = api.jouer_coup(idul, 'D', jeu['joueurs'][0]['pos'])
+
+                a = Q.Quoridor(debauto['joueurs'], debauto['murs'])
+                print(a)
