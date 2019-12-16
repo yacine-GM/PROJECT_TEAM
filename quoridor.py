@@ -142,20 +142,20 @@ class Quoridor:
                 graphe.remove_edge((x-1, y+1), (x, y+1))
                 graphe.remove_edge((x, y+1), (x-1, y+1))
 
-            for joueur in map(tuple, joueurs):
-
-                for prédécesseur in list(graphe.predecessors(joueur)):
-                    graphe.remove_edge(prédécesseur, joueur)
-
-                successeur = (2*joueur[0]-prédécesseur[0], 2*joueur[1]-prédécesseur[1])
-
-            if successeur in graphe.successors(joueur) and successeur not in joueurs:
-                graphe.add_edge(prédécesseur, successeur)
-
-            else:
-                for successeur in list(graphe.successors(joueur)):
-                    if prédécesseur != successeur and successeur not in joueurs:
-                        graphe.add_edge(prédécesseur, successeur)
+            j1, j2 = tuple(joueurs[0]), tuple(joueurs[1])
+            if j2 in graphe.successors(j1) or j1 in graphe.successors(j2):
+                graphe.remove_edge(j1, j2)
+                graphe.remove_edge(j2, j1)
+                
+                def ajouter_lien_sauteur(noeud, voisin):
+                    saut = 2*voisin[0]-noeud[0], 2*voisin[1]-noeud[1]
+                    if saut in graphe.successors(voisin):
+                        graphe.add_edge(noeud, saut)
+                    else:
+                        for saut in graphe.successors(voisin):
+                            graphe.add_edge(noeud, saut)
+                ajouter_lien_sauteur(j1, j2)
+                ajouter_lien_sauteur(j2, j1)
 
             for x in range(1, 10):
                 graphe.add_edge((x, 9), 'B1')
@@ -194,4 +194,3 @@ class Quoridor:
                 raise QuoridorError('Les murs sont tous placés.')
             if  10 - int(self.murs2) == 0:
                 raise QuoridorError('Les murs sont tous placés.')
-

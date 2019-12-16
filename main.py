@@ -79,5 +79,5 @@ if analyser_commande().manugraph:
 
 if analyser_commande().autoautograph:
         print('auto avec affichage graphique')
-else: 
+else:
     print('manuel')
