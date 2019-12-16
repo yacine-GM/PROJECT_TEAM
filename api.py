@@ -24,7 +24,7 @@ def débuter_partie(idulenchaine):
     else:
         return (rep['id'], rep['état'])
 
-def jouer_coup(identifiant, coup, posit):
+def jouer_coup(identifiant, coup, Posit):
     "permet au joueur de jouer un coup dans sa partie avec le type de coup et le point"
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
     rep = requests.post(url_base+'jouer/', data={'id': identifiant, 'type': coup, 'pos': posit})
