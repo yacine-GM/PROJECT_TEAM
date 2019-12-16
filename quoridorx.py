@@ -1,6 +1,7 @@
 import turtle
 import quoridor
 
+
 def tracerpolygone(jack, poly):
     "À l'aide de la tortue ronnie, tracer un polygone "
     jack.penup()
@@ -10,7 +11,6 @@ def tracerpolygone(jack, poly):
     jack.pendown()
     for pos in poly[1:]:
         jack.goto(pos)
-
 
 class QuoridorX(quoridor.Quoridor):
     """Ce module permet de faire l'affichage graphique du jeu Quoridor"""

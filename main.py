@@ -14,9 +14,9 @@ def analyser_commande():
         "-l", "--lister", dest="lister", action='store_true',
         help="Lister les identifiants de vos 20 dernières parties.")
     parser.add_argument('--lister', help='Lister les identifiants de vos 20 dernières parties.', action='store_true')
-    parser.add_argument('-a', '--auto', help='Lister les identifiants de vos 20 dernières parties.', action='store_true')
-    parser.add_argument('-x', '--manugraph', help=' pour jouer en mode manuel contre le serveur avec le nom idul, mais avec un affichage dans une fenêtre graphique.', action='store_true')
-    parser.add_argument('-ax', '--autoautograph', help='pour jouer en mode automatique contre le serveur avec le nom idul, mais avec un affichage dans une fenêtre graphique.', action='store_true')
+    parser.add_argument('-a', '--auto', help='Activer le mode automatique.', action='store_true')
+    parser.add_argument('-x', '--manugraph', help=' Activer le mode graphique.', action='store_true')
+    parser.add_argument('-ax', '--autoautograph', help=' Activer le mode automatique-graphique.', action='store_true')
     parser.add_argument('idul', help=' IDUL du joueur ')
     return parser.parse_args()
 
@@ -80,7 +80,7 @@ def part_graph(idul):
         print(err)
     #initialiser unc classe Quoridorx et l'afficher
     etatquodx = x.QuoridorX(v[1]['joueurs'], v[1]['murs'])
-    etatquodx.afficher()
+    etatquodx.afficher_graphe()
     cte = v[0]
     etat = v[1]
     while True:
@@ -88,7 +88,7 @@ def part_graph(idul):
             pos = etat['joueurs'][0]['pos']
             mh = len(etat['murs']['horizontaux'])
             etatquodx.jouer_coup(1)
-            etatquodx.afficher()
+            etatquodx.afficher_graphe()
             if pos == etatquodx.état_partie()['joueurs'][0]['pos']:
                 if mh == len(etatquodx.état_partie()['murs']['horizontaux']):
                     etat = api.jouer_coup(cte, 'MV', etatquodx.état_partie()['murs']['verticaux'][-1])
@@ -96,7 +96,6 @@ def part_graph(idul):
                     etat = api.jouer_coup(cte, 'MH', etatquodx.état_partie()['murs']['horizontaux'][-1])
             else:
                 etat = api.jouer_coup(cte, 'D', etatquodx.état_partie()['joueurs'][0]['pos'])
-            coup_api(etat, etatquodx)
         except StopIteration as err:
             print(err)
             break
