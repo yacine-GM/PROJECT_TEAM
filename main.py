@@ -72,7 +72,7 @@ if __name__ == "__main__":
     # On appèle analyser_commande() au démarage pour lire les arguments
     ARGS = analyser_commande()
 
-def part_graph(idul):
+def part_autograph(idul):
     "jouer une partie automatique en mode graphique"
     try:
         v = api.débuter_partie(idul)
