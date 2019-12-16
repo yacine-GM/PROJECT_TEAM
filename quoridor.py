@@ -1,4 +1,5 @@
 import networkx as nx
+from tutle import *
 
 
 
@@ -42,6 +43,7 @@ class Quoridor:
 
 
     def __str__(self):
+        up()
         buffer = "\nLégende: 1=self.nom1, 2= self.nom2\n" #À CHANGER!!!!
         buffer += f"   -----------------------------------\n"
         mat_line = []
@@ -81,6 +83,8 @@ class Quoridor:
                 buffer += ''.join(mat_open[i])
         buffer += "--|-----------------------------------\n"
         buffer += "  | 1   2   3   4   5   6   7   8   9\n"
+        write(buffer)
+        done()
         return buffer
 
     def déplacer_jeton(self, joueur, position):
