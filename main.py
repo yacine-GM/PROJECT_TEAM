@@ -1,5 +1,8 @@
 """Module main"""
 import argparse
+import api
+import quoridor as Q
+import quoridorx as x
 
 def analyser_commande():
     """Analyse les arguments de la commande d'exécution"""
@@ -16,7 +19,6 @@ def analyser_commande():
     parser.add_argument('-ax', '--autoautograph', help='pour jouer en mode automatique contre le serveur avec le nom idul, mais avec un affichage dans une fenêtre graphique.', action='store_true')
     parser.add_argument('idul', help=' IDUL du joueur ')
     return parser.parse_args()
-
 
 def afficher_damier_ascii(idul, etat):
     """Affiche le damier à partir de l'état du jeu"""
@@ -70,14 +72,36 @@ if __name__ == "__main__":
     # On appèle analyser_commande() au démarage pour lire les arguments
     ARGS = analyser_commande()
 
-
-print(analyser_commande().idul)
-if analyser_commande().auto:
-    print('auto')
-if analyser_commande().manugraph:
-    print('manuel avec affichage graphique')
-
-if analyser_commande().autoautograph:
-        print('auto avec affichage graphique')
-else:
-    print('manuel')
+def part_graph(idul):
+    "jouer une partie automatique en mode graphique"
+    try:
+        v = api.débuter_partie(idul)
+    except RuntimeError as err:
+        print(err)
+    #initialiser unc classe Quoridorx et l'afficher
+    etatquodx = x.QuoridorX(v[1]['joueurs'], v[1]['murs'])
+    etatquodx.afficher()
+    cte = v[0]
+    etat = v[1]
+    while True:
+        try:
+            pos = etat['joueurs'][0]['pos']
+            mh = len(etat['murs']['horizontaux'])
+            etatquodx.jouer_coup(1)
+            etatquodx.afficher()
+            if pos == etatquodx.état_partie()['joueurs'][0]['pos']:
+                if mh == len(etatquodx.état_partie()['murs']['horizontaux']):
+                    etat = api.jouer_coup(cte, 'MV', etatquodx.état_partie()['murs']['verticaux'][-1])
+                else:
+                    etat = api.jouer_coup(cte, 'MH', etatquodx.état_partie()['murs']['horizontaux'][-1])
+            else:
+                etat = api.jouer_coup(cte, 'D', etatquodx.état_partie()['joueurs'][0]['pos'])
+            coup_api(etat, etatquodx)
+        except StopIteration as err:
+            print(err)
+            break
+        except Q.QuoridorError as err:
+            print(err)
+            break
+        except RuntimeError as err:
+            print(err)

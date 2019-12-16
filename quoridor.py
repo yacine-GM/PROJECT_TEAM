@@ -110,15 +110,20 @@ class Quoridor:
 
     def jouer_coup(self, joueur):
         self.joueur = joueur
-        if self.pos1 < self.pos2:
-            self.déplacer_jeton
+        if nx.shortest_path(graphe, self.pos1, 'B1') < nx.shortest_path(graphe, self.pos2, 'B2'):
+            self.déplacer_jeton(position=p[1])
         else:
-            self.placer_mur
-        if self.joueur != 0 or self.joueur != 1:
-            raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
-        if self.partie_terminée:
-            raise QuoridorError('La partie est déjà terminée.')
-
+            if (self.pos2[0], self.pos2[1]-1) != list(self.murs):
+                self.placer_mur(joueur=1, position=(self.pos2[0], self.pos2[1]-1), orientation='horizontal')
+            elif (self.pos2[0], self.pos2[1]-1) == list(self.murs) and (self.pos2[0]-1, self.pos[1]) != list(self.murs):
+                self.placer_mur(joueur=1, position=(self.pos2[0]-1, self.pos2[1]), orientation='vertical')
+            elif (self.pos2[0], self.pos2[1]-1) == list(self.murs) and (self.pos2[0]-1, self.pos2[1]) == list(self.murs) and (self.pos2[0]+1, self.pos2[1]) != list(self.murs):
+                self.placer_mur(joueur=1, position=(self.pos2[0]+1, self.pos2[1]), orientation='vertical')
+            if self.joueur != 0 or self.joueur != 1:
+                raise QuoridorError('Le numéro de joueur doit être 1 ou 2.')
+            if self.partie_terminée:
+                raise QuoridorError('La partie est déjà terminée.')
+        
         def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
             graphe = nx.DiGraph()
             for x in range(1, 10):
