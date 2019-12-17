@@ -105,7 +105,6 @@ def part_graph(idul):
             #déterminer quel coup l'api a fait pour le faire faire a Quorridorx
             #il est important de ne jamais initialiser de deuxieme classe Quoridorx
             #car le init crée une nouvelle planche de jeu
-            coup_api(etat, etatx)
         except StopIteration as err:
             print(err)
             break
