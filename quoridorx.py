@@ -23,12 +23,10 @@ class QuoridorX(quoridor.Quoridor):
         for i in range(10):
             tracerpolygone(ced, ((-(9-2*i)*n, -9*n), (-(9-2*i)*n, 9*n)))
             tracerpolygone(ced, ((9*n, -(9-2*i)*n), (-9*n, -(9-2*i)*n)))
-
         scr = turtle.Screen()
         scr.title('Quoridor')
         scr.bgcolor('red')
         scr.setup(width=22*n, height=22*n)
-        
         self.yac = turtle.Turtle(shape='square')
         self.yac.penup()
         self.yac.shapesize(0.075*n)
@@ -45,7 +43,6 @@ class QuoridorX(quoridor.Quoridor):
         self.cha.forward(8*n)
         self.jac = turtle.Turtle(visible=None)
         self.jac.penup()
-
         for a in range(1, 10):
             self.jac.goto(-10*n+a*2*n, 9*n)
             self.jac.write(str(a), align='center', font=('arial', 27, 'bold'))
@@ -59,7 +56,6 @@ class QuoridorX(quoridor.Quoridor):
         n = 35
         etat = self.état_partie()
         a = list(j for j in etat['joueurs'])
-
         self.yac.goto(-10*n + 2*n*(a[0]['pos'][0]), -10*n + 2*n*(a[0]['pos'][1]))
         self.cha.goto(-10*n + 2*n*(a[1]['pos'][0]), -10*n + 2*n*(a[1]['pos'][1]))
 
