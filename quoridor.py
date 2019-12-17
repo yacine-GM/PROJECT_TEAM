@@ -108,7 +108,8 @@ class Quoridor:
              'murs': {'horizontaux': h, 'verticaux': v}}
         return f
 
-    def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
+    def jouer_coup(self, joueur):
+           def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
             graphe = nx.DiGraph()
             for x in range(1, 10):
                 for y in range(1, 10):
@@ -155,8 +156,7 @@ class Quoridor:
 
         construire_graphe(self.pos1, self.murs_h, self.murs_v)
         return construire_graphe
-
-    def jouer_coup(self, joueur):
+        
         self.joueur = joueur
         if nx.shortest_path(graphe, self.pos1, 'B1') < nx.shortest_path(graphe, self.pos2, 'B2'):
             self.déplacer_jeton(position=p[1])

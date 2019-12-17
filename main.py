@@ -89,12 +89,10 @@ def part_graph(idul):
     etat = v[1]
     while True:
         try:
-            #jouer le coup de quoridorx et l'afficher
             pos = etat['joueurs'][0]['pos']
             mh = len(etat['murs']['horizontaux'])
             etatx.jouer_coup(1)
             etatx.afficher()
-            #déterminer quel coup il a fait pour le faire dans L'api
             if pos == etatx.état_partie()['joueurs'][0]['pos']:
                 if mh == len(etatx.état_partie()['murs']['horizontaux']):
                     etat = api.jouer_coup(cte, 'MV', etatx.état_partie()['murs']['verticaux'][-1])
@@ -102,9 +100,6 @@ def part_graph(idul):
                     etat = api.jouer_coup(cte, 'MH', etatx.état_partie()['murs']['horizontaux'][-1])
             else:
                 etat = api.jouer_coup(cte, 'D', etatx.état_partie()['joueurs'][0]['pos'])
-            #déterminer quel coup l'api a fait pour le faire faire a Quorridorx
-            #il est important de ne jamais initialiser de deuxieme classe Quoridorx
-            #car le init crée une nouvelle planche de jeu
         except StopIteration as err:
             print(err)
             break
